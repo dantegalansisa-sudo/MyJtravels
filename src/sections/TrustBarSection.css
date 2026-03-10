@@ -1,0 +1,35 @@
+/* ===== TRUST BAR ===== */
+.trustbar {
+  background: var(--color-navy);
+  padding: 18px 0;
+  overflow: hidden;
+  position: relative;
+}
+
+.trustbar__track {
+  display: flex;
+  gap: 48px;
+  animation: scroll-horizontal 30s linear infinite;
+  width: max-content;
+}
+
+.trustbar__item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.trustbar__icon {
+  font-size: 18px;
+}
+
+.trustbar__text {
+  font-family: var(--font-display);
+  font-size: 13px;
+  font-weight: 700;
+  color: white;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+}
