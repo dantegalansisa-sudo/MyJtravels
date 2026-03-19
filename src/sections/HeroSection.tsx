@@ -1,21 +1,8 @@
 import { motion, AnimatePresence, useScroll, useTransform } from 'framer-motion';
-import { useRef, useState, useEffect, useCallback } from 'react';
+import { useRef, useState, useEffect } from 'react';
 import MagneticButton from '../components/MagneticButton';
 import './HeroSection.css';
 
-const heroSlides = [
-  { image: '/newimagenportada/new-york.webp', label: 'Nueva York' },
-  { image: '/newimagenportada/miami.jpg', label: 'Miami' },
-  { image: '/newimagenportada/times-square.webp', label: 'Times Square' },
-  { image: '/newimagenportada/orlando.webp', label: 'Orlando' },
-  { image: '/newimagenportada/hollywood.webp', label: 'Hollywood' },
-  { image: '/newimagenportada/miami-spots.jpg', label: 'Miami Beach' },
-  { image: '/newimagenportada/destino-01.jpg', label: 'Aventura' },
-  { image: '/newimagenportada/destino-02.jpg', label: 'Paraíso' },
-  { image: '/newimagenportada/destino-05.jpg', label: 'Explorar' },
-];
-
-// Rotating destination names for the animated title
 const rotatingDestinations = [
   'Nueva York',
   'Miami',
@@ -42,8 +29,6 @@ const stats = [
 export default function HeroSection() {
   const heroRef = useRef<HTMLDivElement>(null);
   const [selectedDest, setSelectedDest] = useState('');
-  const [currentSlide, setCurrentSlide] = useState(0);
-  const [direction, setDirection] = useState(1);
   const [currentDestWord, setCurrentDestWord] = useState(0);
 
   const { scrollYProgress } = useScroll({
@@ -51,20 +36,10 @@ export default function HeroSection() {
     offset: ['start start', 'end start'],
   });
 
-  const overlayOpacity = useTransform(scrollYProgress, [0, 0.8], [0, 0.6]);
+  const imgScale = useTransform(scrollYProgress, [0, 1], [1, 1.15]);
+  const imgY = useTransform(scrollYProgress, [0, 1], [0, 80]);
 
-  // Auto-advance slides
-  const nextSlide = useCallback(() => {
-    setDirection(1);
-    setCurrentSlide((prev) => (prev + 1) % heroSlides.length);
-  }, []);
-
-  useEffect(() => {
-    const timer = setInterval(nextSlide, 5500);
-    return () => clearInterval(timer);
-  }, [nextSlide]);
-
-  // Rotate destination words in the title
+  // Rotate destination words
   useEffect(() => {
     const timer = setInterval(() => {
       setCurrentDestWord((prev) => (prev + 1) % rotatingDestinations.length);
@@ -72,101 +47,25 @@ export default function HeroSection() {
     return () => clearInterval(timer);
   }, []);
 
-  // Preload next image
-  useEffect(() => {
-    const nextIdx = (currentSlide + 1) % heroSlides.length;
-    const img = new Image();
-    img.src = heroSlides[nextIdx].image;
-  }, [currentSlide]);
-
-  const goToSlide = (index: number) => {
-    setDirection(index > currentSlide ? 1 : -1);
-    setCurrentSlide(index);
-  };
-
   const whatsappMessage = selectedDest
     ? `Hola M&J Travels! Quiero cotizar un vuelo a ${selectedDest}.`
     : 'Hola M&J Travels! Quiero cotizar un vuelo.';
 
   const whatsappUrl = `https://wa.me/18298740109?text=${encodeURIComponent(whatsappMessage)}`;
 
-  const slideVariants = {
-    enter: (dir: number) => ({
-      x: dir > 0 ? '6%' : '-6%',
-      scale: 1.15,
-      opacity: 0,
-    }),
-    center: {
-      x: 0,
-      scale: 1,
-      opacity: 1,
-    },
-    exit: (dir: number) => ({
-      x: dir > 0 ? '-6%' : '6%',
-      scale: 1.08,
-      opacity: 0,
-    }),
-  };
-
   return (
     <section className="hero" ref={heroRef} id="inicio">
-      {/* ===== FULLSCREEN IMAGE SLIDER + KEN BURNS ===== */}
-      <div className="hero__slider">
-        <AnimatePresence initial={false} custom={direction} mode="popLayout">
-          <motion.div
-            key={currentSlide}
-            className="hero__slide"
-            custom={direction}
-            variants={slideVariants}
-            initial="enter"
-            animate="center"
-            exit="exit"
-            transition={{
-              x: { type: 'tween', duration: 1.2, ease: [0.25, 0.1, 0.25, 1] },
-              opacity: { duration: 0.8 },
-              scale: { duration: 1.2, ease: [0.25, 0.1, 0.25, 1] },
-            }}
-          >
-            {/* Ken Burns: slow zoom via CSS animation on the img */}
-            <img
-              src={heroSlides[currentSlide].image}
-              alt={heroSlides[currentSlide].label}
-              className="hero__slide-img"
-              loading={currentSlide === 0 ? 'eager' : 'lazy'}
-            />
-          </motion.div>
-        </AnimatePresence>
+      {/* ===== SINGLE BACKGROUND IMAGE + PARALLAX ===== */}
+      <motion.div className="hero__bg-image" style={{ scale: imgScale, y: imgY }}>
+        <img
+          src="/newimagenportada/portada-main.jpg"
+          alt="Destino de viaje"
+          loading="eager"
+        />
+      </motion.div>
 
-        {/* Cinematic overlay — stronger at top for navbar */}
-        <div className="hero__overlay" />
-        <motion.div className="hero__overlay-scroll" style={{ opacity: overlayOpacity }} />
-      </div>
-
-      {/* ===== SLIDE INDICATORS ===== */}
-      <div className="hero__indicators">
-        {heroSlides.map((_, i) => (
-          <button
-            key={i}
-            className={`hero__dot ${i === currentSlide ? 'hero__dot--active' : ''}`}
-            onClick={() => goToSlide(i)}
-            aria-label={`Ir a slide ${i + 1}`}
-          />
-        ))}
-      </div>
-
-      {/* ===== CURRENT DESTINATION LABEL ===== */}
-      <AnimatePresence mode="wait">
-        <motion.div
-          key={currentSlide}
-          className="hero__slide-label"
-          initial={{ opacity: 0, y: 10 }}
-          animate={{ opacity: 1, y: 0 }}
-          exit={{ opacity: 0, y: -10 }}
-          transition={{ duration: 0.4 }}
-        >
-          {heroSlides[currentSlide].label}
-        </motion.div>
-      </AnimatePresence>
+      {/* Cinematic overlay */}
+      <div className="hero__overlay" />
 
       {/* ===== ANIMATED PLANE ===== */}
       <motion.div
@@ -175,14 +74,14 @@ export default function HeroSection() {
         animate={{ x: '110vw', y: '-5vh', opacity: [0, 1, 1, 0] }}
         transition={{ duration: 8, delay: 1.5, repeat: Infinity, repeatDelay: 14 }}
       >
-        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+        <svg width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
           <path d="M17.8 19.2L16 11l3.5-3.5C21 6 21.5 4 21 3c-1-.5-3 0-4.5 1.5L13 8 4.8 6.2c-.5-.1-.9.1-1.1.5l-.3.5c-.2.5-.1 1 .3 1.3L9 12l-2 3H4l-1 1 3 2 2 3 1-1v-3l3-2 3.5 5.3c.3.4.8.5 1.3.3l.5-.2c.4-.3.6-.7.5-1.2z" />
         </svg>
       </motion.div>
 
       {/* ===== HERO CONTENT ===== */}
       <div className="hero__content section-container">
-        {/* Badge — small & discrete */}
+        {/* Badge */}
         <motion.div
           className="hero__badge"
           initial={{ opacity: 0, y: 12 }}
@@ -193,7 +92,7 @@ export default function HeroSection() {
           <span>Agencia Registrada · CESDN</span>
         </motion.div>
 
-        {/* Title — thin "Viaja a" + bold rotating destination */}
+        {/* Title with rotating destination */}
         <motion.h1
           className="hero__title"
           initial={{ opacity: 0, y: 30 }}
@@ -201,21 +100,18 @@ export default function HeroSection() {
           transition={{ duration: 0.7, delay: 0.25 }}
         >
           <span className="hero__title-light">Viaja a</span>
-          <br />
-          <span className="hero__title-dest">
-            <AnimatePresence mode="wait">
-              <motion.span
-                key={currentDestWord}
-                className="hero__title-word"
-                initial={{ opacity: 0, y: 30, filter: 'blur(8px)' }}
-                animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
-                exit={{ opacity: 0, y: -30, filter: 'blur(8px)' }}
-                transition={{ duration: 0.5, ease: [0.25, 0.1, 0.25, 1] }}
-              >
-                {rotatingDestinations[currentDestWord]}
-              </motion.span>
-            </AnimatePresence>
-          </span>
+          <AnimatePresence mode="wait">
+            <motion.span
+              key={currentDestWord}
+              className="hero__title-dest"
+              initial={{ opacity: 0, y: 40, filter: 'blur(10px)' }}
+              animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+              exit={{ opacity: 0, y: -40, filter: 'blur(10px)' }}
+              transition={{ duration: 0.5, ease: [0.25, 0.1, 0.25, 1] }}
+            >
+              {rotatingDestinations[currentDestWord]}
+            </motion.span>
+          </AnimatePresence>
         </motion.h1>
 
         {/* Subtitle */}
@@ -279,9 +175,9 @@ export default function HeroSection() {
       {/* ===== FLOATING PRICE CARD ===== */}
       <motion.div
         className="hero__price-card"
-        initial={{ opacity: 0, x: 40 }}
-        animate={{ opacity: 1, x: 0 }}
-        transition={{ delay: 1.4, duration: 0.8 }}
+        initial={{ opacity: 0, y: 30 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 1.4, duration: 0.8, ease: [0.25, 0.1, 0.25, 1] }}
       >
         <div className="pcard__label">Oferta de la Semana</div>
         <div className="pcard__route">SDQ → JFK</div>
@@ -319,10 +215,10 @@ export default function HeroSection() {
         animate={{ opacity: 1 }}
         transition={{ delay: 2 }}
       >
-        <span>Explora</span>
         <motion.div
           animate={{ y: [0, 8, 0] }}
           transition={{ repeat: Infinity, duration: 1.5 }}
+          className="hero__scroll-arrow"
         >
           ↓
         </motion.div>
