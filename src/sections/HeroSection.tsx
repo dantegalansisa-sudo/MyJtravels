@@ -150,11 +150,11 @@ export default function HeroSection() {
             transition={{ delay: 1.2, duration: 0.6 }}
           >
             <div className="hero__offer-label">Oferta de la Semana</div>
-            <div className="hero__offer-route">SDQ → JFK</div>
+            <div className="hero__offer-route">Nueva York</div>
             <div className="hero__offer-price">Desde RD$28,000</div>
             <div className="hero__offer-note">Ida y vuelta</div>
             <MagneticButton
-              href="https://wa.me/18298740109?text=Hola!%20Me%20interesa%20el%20vuelo%20SDQ%20→%20JFK%20por%20RD%2428%2C000"
+              href="https://wa.me/18298740109?text=Hola!%20Me%20interesa%20un%20vuelo%20a%20Nueva%20York%20por%20RD%2428%2C000"
               className="hero__offer-cta"
               target="_blank"
             >

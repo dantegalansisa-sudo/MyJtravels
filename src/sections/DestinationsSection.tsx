@@ -39,7 +39,7 @@ export default function DestinationsSection() {
           ¿A Dónde Quieres Volar?
         </RevealText>
         <p className="section-subtitle">
-          Vuelos ida y vuelta desde Santo Domingo. Precios referenciales — consulta disponibilidad actual.
+          Vuelos ida y vuelta desde cualquier origen. Precios referenciales — consulta disponibilidad actual.
         </p>
 
         <div className="destinations__tabs">

@@ -46,7 +46,7 @@ export default function WhyUsSection() {
           <div className="whyus__right">
             <span className="section-eyebrow">¿Por qué elegirnos?</span>
             <RevealText tag="h2" className="section-title">
-              Tu Agencia Confiable En Santo Domingo
+              Tu Agencia de Viajes Confiable
             </RevealText>
 
             <motion.div
