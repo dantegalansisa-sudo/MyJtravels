@@ -205,8 +205,8 @@ export default function HeroSection() {
 
         {/* Title */}
         <RevealText tag="h1" className="hero__title" delay={0.3}>
-          Tu Próximo Viaje<br />
-          <span>Comienza Aquí</span>
+          Viaja al Destino<br />
+          <span>Que Siempre Soñaste</span>
         </RevealText>
 
         {/* Subtitle — updated messaging */}

@@ -6,11 +6,28 @@
   right: 0;
   z-index: 1000;
   padding: 16px 0;
-  transition: background 0.3s, box-shadow 0.3s, padding 0.3s;
+  transition: background 0.4s, box-shadow 0.4s, padding 0.3s;
+}
+
+/* Transparent state — white text over dark hero */
+.navbar:not(.navbar--scrolled) .navbar__name {
+  color: #fff;
+}
+
+.navbar:not(.navbar--scrolled) .navbar__link {
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.navbar:not(.navbar--scrolled) .navbar__link:hover {
+  color: #fff;
+}
+
+.navbar:not(.navbar--scrolled) .navbar__burger span {
+  background: #fff;
 }
 
 .navbar--scrolled {
-  background: rgba(255, 255, 255, 0.96);
+  background: rgba(255, 255, 255, 0.97);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
   box-shadow: 0 1px 16px rgba(26, 35, 126, 0.06);
