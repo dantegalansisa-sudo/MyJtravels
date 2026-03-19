@@ -38,7 +38,7 @@ export default function HeroSection() {
       {/* ===== BACKGROUND IMAGE — zoomed out to show full image ===== */}
       <motion.div className="hero__bg-image" style={{ y: imgY }}>
         <img
-          src="/newimagenportada/portada-main.jpg"
+          src="/newimagenportada/turismo.jpg"
           alt="Destino de viaje"
           loading="eager"
         />
