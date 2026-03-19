@@ -1,63 +1,42 @@
 import { motion, AnimatePresence, useScroll, useTransform } from 'framer-motion';
 import { useRef, useState, useEffect, useCallback } from 'react';
-import RevealText from '../components/RevealText';
 import MagneticButton from '../components/MagneticButton';
 import './HeroSection.css';
 
 const heroSlides = [
-  {
-    image: '/newimagenportada/new-york.webp',
-    label: 'Nueva York',
-  },
-  {
-    image: '/newimagenportada/miami.jpg',
-    label: 'Miami',
-  },
-  {
-    image: '/newimagenportada/times-square.webp',
-    label: 'Times Square',
-  },
-  {
-    image: '/newimagenportada/orlando.webp',
-    label: 'Orlando',
-  },
-  {
-    image: '/newimagenportada/hollywood.webp',
-    label: 'Hollywood',
-  },
-  {
-    image: '/newimagenportada/miami-spots.jpg',
-    label: 'Miami Beach',
-  },
-  {
-    image: '/newimagenportada/destino-01.jpg',
-    label: 'Aventura',
-  },
-  {
-    image: '/newimagenportada/destino-02.jpg',
-    label: 'Paraíso',
-  },
-  {
-    image: '/newimagenportada/destino-05.jpg',
-    label: 'Explorar',
-  },
+  { image: '/newimagenportada/new-york.webp', label: 'Nueva York' },
+  { image: '/newimagenportada/miami.jpg', label: 'Miami' },
+  { image: '/newimagenportada/times-square.webp', label: 'Times Square' },
+  { image: '/newimagenportada/orlando.webp', label: 'Orlando' },
+  { image: '/newimagenportada/hollywood.webp', label: 'Hollywood' },
+  { image: '/newimagenportada/miami-spots.jpg', label: 'Miami Beach' },
+  { image: '/newimagenportada/destino-01.jpg', label: 'Aventura' },
+  { image: '/newimagenportada/destino-02.jpg', label: 'Paraíso' },
+  { image: '/newimagenportada/destino-05.jpg', label: 'Explorar' },
+];
+
+// Rotating destination names for the animated title
+const rotatingDestinations = [
+  'Nueva York',
+  'Miami',
+  'Cancún',
+  'Madrid',
+  'Punta Cana',
+  'Bogotá',
+  'Orlando',
 ];
 
 const destinations = [
-  'Nueva York',
-  'Miami',
-  'Boston',
-  'Medellín',
-  'Bogotá',
-  'Madrid',
-  'Curazao',
-  'Punta Cana',
-  'Cartagena',
-  'Costa Rica',
-  'Cancún',
-  'San Juan PR',
-  'Lima / Perú',
-  'Chile',
+  'Nueva York', 'Miami', 'Boston', 'Medellín', 'Bogotá', 'Madrid',
+  'Curazao', 'Punta Cana', 'Cartagena', 'Costa Rica', 'Cancún',
+  'San Juan PR', 'Lima / Perú', 'Chile',
+];
+
+const stats = [
+  { value: '5,000+', label: 'Clientes Felices' },
+  { value: '15+', label: 'Destinos' },
+  { value: '10', label: 'Años de Experiencia' },
+  { value: '24/7', label: 'Atención' },
 ];
 
 export default function HeroSection() {
@@ -65,6 +44,7 @@ export default function HeroSection() {
   const [selectedDest, setSelectedDest] = useState('');
   const [currentSlide, setCurrentSlide] = useState(0);
   const [direction, setDirection] = useState(1);
+  const [currentDestWord, setCurrentDestWord] = useState(0);
 
   const { scrollYProgress } = useScroll({
     target: heroRef,
@@ -83,6 +63,14 @@ export default function HeroSection() {
     const timer = setInterval(nextSlide, 5500);
     return () => clearInterval(timer);
   }, [nextSlide]);
+
+  // Rotate destination words in the title
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setCurrentDestWord((prev) => (prev + 1) % rotatingDestinations.length);
+    }, 3000);
+    return () => clearInterval(timer);
+  }, []);
 
   // Preload next image
   useEffect(() => {
@@ -104,25 +92,25 @@ export default function HeroSection() {
 
   const slideVariants = {
     enter: (dir: number) => ({
-      x: dir > 0 ? '8%' : '-8%',
-      scale: 1.1,
+      x: dir > 0 ? '6%' : '-6%',
+      scale: 1.15,
       opacity: 0,
     }),
     center: {
       x: 0,
-      scale: 1.05,
+      scale: 1,
       opacity: 1,
     },
     exit: (dir: number) => ({
-      x: dir > 0 ? '-8%' : '8%',
-      scale: 1,
+      x: dir > 0 ? '-6%' : '6%',
+      scale: 1.08,
       opacity: 0,
     }),
   };
 
   return (
     <section className="hero" ref={heroRef} id="inicio">
-      {/* ===== FULLSCREEN IMAGE SLIDER ===== */}
+      {/* ===== FULLSCREEN IMAGE SLIDER + KEN BURNS ===== */}
       <div className="hero__slider">
         <AnimatePresence initial={false} custom={direction} mode="popLayout">
           <motion.div
@@ -136,18 +124,20 @@ export default function HeroSection() {
             transition={{
               x: { type: 'tween', duration: 1.2, ease: [0.25, 0.1, 0.25, 1] },
               opacity: { duration: 0.8 },
-              scale: { duration: 8, ease: 'linear' },
+              scale: { duration: 1.2, ease: [0.25, 0.1, 0.25, 1] },
             }}
           >
+            {/* Ken Burns: slow zoom via CSS animation on the img */}
             <img
               src={heroSlides[currentSlide].image}
               alt={heroSlides[currentSlide].label}
+              className="hero__slide-img"
               loading={currentSlide === 0 ? 'eager' : 'lazy'}
             />
           </motion.div>
         </AnimatePresence>
 
-        {/* Dark cinematic overlay */}
+        {/* Cinematic overlay — stronger at top for navbar */}
         <div className="hero__overlay" />
         <motion.div className="hero__overlay-scroll" style={{ opacity: overlayOpacity }} />
       </div>
@@ -192,32 +182,51 @@ export default function HeroSection() {
 
       {/* ===== HERO CONTENT ===== */}
       <div className="hero__content section-container">
-        {/* Badge */}
+        {/* Badge — small & discrete */}
         <motion.div
           className="hero__badge"
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 12 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.1 }}
+          transition={{ duration: 0.5, delay: 0.1 }}
         >
           <img src="/imagenes/logo.png" alt="M&J Travels" className="hero__logo" />
-          <span>Agencia Registrada · Miembro CESDN</span>
+          <span>Agencia Registrada · CESDN</span>
         </motion.div>
 
-        {/* Title */}
-        <RevealText tag="h1" className="hero__title" delay={0.3}>
-          Viaja al Destino<br />
-          <span>Que Siempre Soñaste</span>
-        </RevealText>
+        {/* Title — thin "Viaja a" + bold rotating destination */}
+        <motion.h1
+          className="hero__title"
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.7, delay: 0.25 }}
+        >
+          <span className="hero__title-light">Viaja a</span>
+          <br />
+          <span className="hero__title-dest">
+            <AnimatePresence mode="wait">
+              <motion.span
+                key={currentDestWord}
+                className="hero__title-word"
+                initial={{ opacity: 0, y: 30, filter: 'blur(8px)' }}
+                animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+                exit={{ opacity: 0, y: -30, filter: 'blur(8px)' }}
+                transition={{ duration: 0.5, ease: [0.25, 0.1, 0.25, 1] }}
+              >
+                {rotatingDestinations[currentDestWord]}
+              </motion.span>
+            </AnimatePresence>
+          </span>
+        </motion.h1>
 
-        {/* Subtitle — updated messaging */}
+        {/* Subtitle */}
         <motion.p
           className="hero__subtitle"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.6 }}
+          transition={{ duration: 0.6, delay: 0.5 }}
         >
           Boletos aéreos, hoteles, tours, cruceros y más.
-          Te gestionamos tu viaje desde cualquier parte del mundo hacia el destino que sueñas.
+          Te gestionamos tu viaje desde cualquier parte del mundo.
         </motion.p>
 
         {/* Search */}
@@ -225,7 +234,7 @@ export default function HeroSection() {
           className="hero__search"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.8 }}
+          transition={{ duration: 0.6, delay: 0.7 }}
         >
           <select
             className="hero__select"
@@ -252,7 +261,7 @@ export default function HeroSection() {
           className="hero__actions"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 1 }}
+          transition={{ duration: 0.6, delay: 0.9 }}
         >
           <MagneticButton
             href="https://wa.me/18298740109?text=Hola!%20Quiero%20ver%20las%20ofertas%20de%20vuelos."
@@ -272,7 +281,7 @@ export default function HeroSection() {
         className="hero__price-card"
         initial={{ opacity: 0, x: 40 }}
         animate={{ opacity: 1, x: 0 }}
-        transition={{ delay: 1.6, duration: 0.8 }}
+        transition={{ delay: 1.4, duration: 0.8 }}
       >
         <div className="pcard__label">Oferta de la Semana</div>
         <div className="pcard__route">SDQ → JFK</div>
@@ -288,12 +297,27 @@ export default function HeroSection() {
         </MagneticButton>
       </motion.div>
 
+      {/* ===== TRUST STATS BAR ===== */}
+      <motion.div
+        className="hero__stats"
+        initial={{ opacity: 0, y: 30 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 1.2, duration: 0.7 }}
+      >
+        {stats.map((stat, i) => (
+          <div key={i} className="hero__stat">
+            <span className="hero__stat-value">{stat.value}</span>
+            <span className="hero__stat-label">{stat.label}</span>
+          </div>
+        ))}
+      </motion.div>
+
       {/* ===== SCROLL INDICATOR ===== */}
       <motion.div
         className="hero__scroll"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        transition={{ delay: 2.2 }}
+        transition={{ delay: 2 }}
       >
         <span>Explora</span>
         <motion.div
