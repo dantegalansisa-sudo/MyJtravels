@@ -21,8 +21,8 @@ const international = [
 ];
 
 const national = [
-  { city: 'Punta Cana', country: 'República Dominicana', code: 'PUJ', price: 'Desde RD$52,164', image: 'https://images.unsplash.com/photo-1582719508461-905c673771fd?w=500&q=80', tag: 'Familiar' },
-  { city: 'Puerto Plata', country: 'República Dominicana', code: 'POP', price: 'Desde DOP 5,880', image: 'https://images.unsplash.com/photo-1551882547-ff40c63fe5fa?w=500&q=80', tag: 'Próximamente' },
+  { city: 'Punta Cana', country: 'República Dominicana', code: 'PUJ', price: 'Desde RD$52,164', image: '/imagenes/Nickelodeon Hotel Punta Cana.jpg', tag: 'Familiar' },
+  { city: 'Puerto Plata', country: 'República Dominicana', code: 'POP', price: 'Desde DOP 5,880', image: '/imagenes/Marien Puerto Plata.jpg', tag: 'Próximamente' },
 ];
 
 export default function DestinationsSection() {
