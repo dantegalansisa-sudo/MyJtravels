@@ -10,10 +10,10 @@
   background: #0b0f1a;
 }
 
-/* ===== BACKGROUND IMAGE — vibrant, minimal overlay ===== */
+/* ===== BACKGROUND IMAGE — full quality, no aggressive crop ===== */
 .hero__bg-image {
   position: absolute;
-  inset: -20px;
+  inset: 0;
   z-index: 0;
   will-change: transform;
 }
@@ -22,8 +22,9 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
-  object-position: center top;
+  object-position: center center;
   display: block;
+  image-rendering: auto;
 }
 
 /* ===== OVERLAY — light, only edges ===== */

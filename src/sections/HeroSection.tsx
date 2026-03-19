@@ -37,7 +37,7 @@ export default function HeroSection() {
       {/* ===== BACKGROUND IMAGE ===== */}
       <motion.div className="hero__bg-image" style={{ y: imgY }}>
         <img
-          src="/newimagenportada/turismo.jpg"
+          src="/newimagenportada/turismo-new.png"
           alt="Turista feliz con pasaporte y monumentos del mundo"
           loading="eager"
         />
