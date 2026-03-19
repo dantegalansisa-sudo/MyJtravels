@@ -1,5 +1,5 @@
-import { motion, useScroll, useTransform } from 'framer-motion';
-import { useRef, useState } from 'react';
+import { motion } from 'framer-motion';
+import { useState } from 'react';
 import MagneticButton from '../components/MagneticButton';
 import './HeroSection.css';
 
@@ -10,21 +10,13 @@ const destinations = [
 ];
 
 const stats = [
-  { value: '5,000+', label: 'Clientes' },
+  { value: '5,000+', label: 'Clientes Felices' },
   { value: '15+', label: 'Destinos' },
   { value: '10 Años', label: 'Experiencia' },
 ];
 
 export default function HeroSection() {
-  const heroRef = useRef<HTMLDivElement>(null);
   const [selectedDest, setSelectedDest] = useState('');
-
-  const { scrollYProgress } = useScroll({
-    target: heroRef,
-    offset: ['start start', 'end start'],
-  });
-
-  const imgY = useTransform(scrollYProgress, [0, 1], [0, 50]);
 
   const whatsappMessage = selectedDest
     ? `Hola M&J Travels! Quiero cotizar un vuelo a ${selectedDest}.`
@@ -33,87 +25,97 @@ export default function HeroSection() {
   const whatsappUrl = `https://wa.me/18298740109?text=${encodeURIComponent(whatsappMessage)}`;
 
   return (
-    <section className="hero" ref={heroRef} id="inicio">
-      {/* ===== BACKGROUND IMAGE ===== */}
-      <motion.div className="hero__bg-image" style={{ y: imgY }}>
-        <img
-          src="/newimagenportada/turismo-new.png"
-          alt="Turista feliz con pasaporte y monumentos del mundo"
-          loading="eager"
-        />
-      </motion.div>
+    <section className="hero" id="inicio">
+      {/* Decorative bg shapes */}
+      <div className="hero__bg-shapes">
+        <div className="hero__shape hero__shape--1" />
+        <div className="hero__shape hero__shape--2" />
+      </div>
 
-      {/* Subtle gradient — only at bottom and top edges */}
-      <div className="hero__overlay" />
+      <div className="hero__grid section-container">
+        {/* ===== LEFT — Text ===== */}
+        <div className="hero__left">
+          <motion.div
+            className="hero__badge"
+            initial={{ opacity: 0, y: 12 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.1 }}
+          >
+            <img src="/imagenes/logo.png" alt="M&J Travels" className="hero__badge-logo" />
+            <span>Agencia Registrada · CESDN</span>
+          </motion.div>
 
-      {/* ===== BOTTOM CONTENT PANEL ===== */}
-      <div className="hero__bottom">
-        <div className="hero__bottom-inner section-container">
-          {/* Left — Text & CTA */}
-          <div className="hero__text">
-            <motion.div
-              className="hero__badge"
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.1 }}
+          <motion.h1
+            className="hero__title"
+            initial={{ opacity: 0, y: 25 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.2 }}
+          >
+            El Mundo Te Espera,
+            <br />
+            <span className="hero__title-accent">Nosotros Te Llevamos</span>
+          </motion.h1>
+
+          <motion.p
+            className="hero__subtitle"
+            initial={{ opacity: 0, y: 15 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.4 }}
+          >
+            Vuelos, hoteles, tours y cruceros. Te gestionamos tu viaje
+            desde cualquier parte del mundo hacia el destino que sueñas.
+          </motion.p>
+
+          <motion.div
+            className="hero__search"
+            initial={{ opacity: 0, y: 15 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.55 }}
+          >
+            <select
+              className="hero__select"
+              value={selectedDest}
+              onChange={(e) => setSelectedDest(e.target.value)}
             >
-              <img src="/imagenes/logo.png" alt="M&J Travels" className="hero__logo" />
-              <span>Agencia Registrada · CESDN</span>
-            </motion.div>
-
-            <motion.h1
-              className="hero__title"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.2 }}
+              <option value="">¿A dónde quieres volar?</option>
+              {destinations.map((d) => (
+                <option key={d} value={d}>{d}</option>
+              ))}
+              <option value="Otro destino">Otro destino...</option>
+            </select>
+            <MagneticButton
+              href={whatsappUrl}
+              className="hero__search-btn"
+              target="_blank"
             >
-              Tu viaje perfecto,{' '}
-              <span className="hero__title-accent">a un click de distancia</span>
-            </motion.h1>
+              Cotizar Gratis →
+            </MagneticButton>
+          </motion.div>
 
-            <motion.p
-              className="hero__subtitle"
-              initial={{ opacity: 0, y: 15 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.35 }}
+          <motion.div
+            className="hero__actions"
+            initial={{ opacity: 0, y: 15 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.7 }}
+          >
+            <MagneticButton
+              href="https://wa.me/18298740109?text=Hola!%20Quiero%20ver%20las%20ofertas%20de%20vuelos."
+              className="btn-primary"
+              target="_blank"
             >
-              Vuelos, hoteles, tours y cruceros desde cualquier parte del mundo.
-            </motion.p>
+              Ver Ofertas de Vuelos
+            </MagneticButton>
+            <MagneticButton href="#destinos" className="btn-ghost">
+              Explorar Destinos
+            </MagneticButton>
+          </motion.div>
 
-            {/* Search inline */}
-            <motion.div
-              className="hero__search"
-              initial={{ opacity: 0, y: 15 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.5 }}
-            >
-              <select
-                className="hero__select"
-                value={selectedDest}
-                onChange={(e) => setSelectedDest(e.target.value)}
-              >
-                <option value="">¿A dónde quieres volar?</option>
-                {destinations.map((d) => (
-                  <option key={d} value={d}>{d}</option>
-                ))}
-                <option value="Otro destino">Otro destino...</option>
-              </select>
-              <MagneticButton
-                href={whatsappUrl}
-                className="hero__search-btn"
-                target="_blank"
-              >
-                Cotizar Gratis →
-              </MagneticButton>
-            </motion.div>
-          </div>
-
-          {/* Right — Stats */}
+          {/* Stats */}
           <motion.div
             className="hero__stats"
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 15 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.6 }}
+            transition={{ duration: 0.5, delay: 0.85 }}
           >
             {stats.map((stat, i) => (
               <div key={i} className="hero__stat">
@@ -123,26 +125,44 @@ export default function HeroSection() {
             ))}
           </motion.div>
         </div>
-      </div>
 
-      {/* ===== FLOATING OFFER — top right, small ===== */}
-      <motion.div
-        className="hero__offer"
-        initial={{ opacity: 0, x: 20 }}
-        animate={{ opacity: 1, x: 0 }}
-        transition={{ delay: 1, duration: 0.7 }}
-      >
-        <div className="hero__offer-label">Oferta</div>
-        <div className="hero__offer-route">SDQ → JFK</div>
-        <div className="hero__offer-price">RD$28,000</div>
-        <MagneticButton
-          href="https://wa.me/18298740109?text=Hola!%20Me%20interesa%20el%20vuelo%20SDQ%20→%20JFK%20por%20RD%2428%2C000"
-          className="hero__offer-cta"
-          target="_blank"
+        {/* ===== RIGHT — Image ===== */}
+        <motion.div
+          className="hero__right"
+          initial={{ opacity: 0, y: 30, scale: 0.97 }}
+          animate={{ opacity: 1, y: 0, scale: 1 }}
+          transition={{ duration: 0.8, delay: 0.3, ease: [0.25, 0.1, 0.25, 1] }}
         >
-          Reservar
-        </MagneticButton>
-      </motion.div>
+          <div className="hero__image-wrapper">
+            <img
+              src="/newimagenportada/turismo-new.png"
+              alt="Turista lista para viajar por el mundo"
+              className="hero__image"
+              loading="eager"
+            />
+          </div>
+
+          {/* Floating offer card */}
+          <motion.div
+            className="hero__offer"
+            initial={{ opacity: 0, x: 20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ delay: 1.2, duration: 0.6 }}
+          >
+            <div className="hero__offer-label">Oferta de la Semana</div>
+            <div className="hero__offer-route">SDQ → JFK</div>
+            <div className="hero__offer-price">Desde RD$28,000</div>
+            <div className="hero__offer-note">Ida y vuelta</div>
+            <MagneticButton
+              href="https://wa.me/18298740109?text=Hola!%20Me%20interesa%20el%20vuelo%20SDQ%20→%20JFK%20por%20RD%2428%2C000"
+              className="hero__offer-cta"
+              target="_blank"
+            >
+              Reservar →
+            </MagneticButton>
+          </motion.div>
+        </motion.div>
+      </div>
     </section>
   );
 }
