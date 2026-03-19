@@ -1,17 +1,7 @@
-import { motion, AnimatePresence, useScroll, useTransform } from 'framer-motion';
-import { useRef, useState, useEffect } from 'react';
+import { motion, useScroll, useTransform } from 'framer-motion';
+import { useRef, useState } from 'react';
 import MagneticButton from '../components/MagneticButton';
 import './HeroSection.css';
-
-const rotatingDestinations = [
-  'Nueva York',
-  'Miami',
-  'Cancún',
-  'Madrid',
-  'Punta Cana',
-  'Bogotá',
-  'Orlando',
-];
 
 const destinations = [
   'Nueva York', 'Miami', 'Boston', 'Medellín', 'Bogotá', 'Madrid',
@@ -29,23 +19,13 @@ const stats = [
 export default function HeroSection() {
   const heroRef = useRef<HTMLDivElement>(null);
   const [selectedDest, setSelectedDest] = useState('');
-  const [currentDestWord, setCurrentDestWord] = useState(0);
 
   const { scrollYProgress } = useScroll({
     target: heroRef,
     offset: ['start start', 'end start'],
   });
 
-  const imgScale = useTransform(scrollYProgress, [0, 1], [1, 1.15]);
-  const imgY = useTransform(scrollYProgress, [0, 1], [0, 80]);
-
-  // Rotate destination words
-  useEffect(() => {
-    const timer = setInterval(() => {
-      setCurrentDestWord((prev) => (prev + 1) % rotatingDestinations.length);
-    }, 3000);
-    return () => clearInterval(timer);
-  }, []);
+  const imgY = useTransform(scrollYProgress, [0, 1], [0, 60]);
 
   const whatsappMessage = selectedDest
     ? `Hola M&J Travels! Quiero cotizar un vuelo a ${selectedDest}.`
@@ -55,8 +35,8 @@ export default function HeroSection() {
 
   return (
     <section className="hero" ref={heroRef} id="inicio">
-      {/* ===== SINGLE BACKGROUND IMAGE + PARALLAX ===== */}
-      <motion.div className="hero__bg-image" style={{ scale: imgScale, y: imgY }}>
+      {/* ===== BACKGROUND IMAGE — zoomed out to show full image ===== */}
+      <motion.div className="hero__bg-image" style={{ y: imgY }}>
         <img
           src="/newimagenportada/portada-main.jpg"
           alt="Destino de viaje"
@@ -92,26 +72,15 @@ export default function HeroSection() {
           <span>Agencia Registrada · CESDN</span>
         </motion.div>
 
-        {/* Title with rotating destination */}
+        {/* Title — captivating static phrase */}
         <motion.h1
           className="hero__title"
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, delay: 0.25 }}
         >
-          <span className="hero__title-light">Viaja a</span>
-          <AnimatePresence mode="wait">
-            <motion.span
-              key={currentDestWord}
-              className="hero__title-dest"
-              initial={{ opacity: 0, y: 40, filter: 'blur(10px)' }}
-              animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
-              exit={{ opacity: 0, y: -40, filter: 'blur(10px)' }}
-              transition={{ duration: 0.5, ease: [0.25, 0.1, 0.25, 1] }}
-            >
-              {rotatingDestinations[currentDestWord]}
-            </motion.span>
-          </AnimatePresence>
+          <span className="hero__title-top">El Mundo Te Espera</span>
+          <span className="hero__title-accent">Nosotros Te Llevamos</span>
         </motion.h1>
 
         {/* Subtitle */}
