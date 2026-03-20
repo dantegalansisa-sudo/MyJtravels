@@ -29,6 +29,12 @@ const hotelesNacionales = [
   { name: 'Bahía Príncipe', city: 'Samaná', price: 'Desde RD$22,000', stars: 4, country: 'DO' },
   { name: 'Iberostar Dominicana', city: 'Punta Cana', price: 'Desde RD$28,000', stars: 5, country: 'DO' },
   { name: 'Marien Hotel', city: 'Puerto Plata', price: 'Desde RD$12,000', stars: 3, country: 'DO' },
+  { name: 'Dreams Macao', city: 'Punta Cana', price: 'Desde RD$32,000', stars: 5, country: 'DO' },
+  { name: 'Occidental Caribe', city: 'Punta Cana', price: 'Desde RD$18,000', stars: 4, country: 'DO' },
+  { name: 'Emotions by Hodelpa', city: 'Juan Dolio', price: 'Desde RD$15,000', stars: 4, country: 'DO' },
+  { name: 'Secrets Royal Beach', city: 'Punta Cana', price: 'Desde RD$42,000', stars: 5, country: 'DO' },
+  { name: 'Viva Wyndham Tangerine', city: 'Cabarete', price: 'Desde RD$14,000', stars: 4, country: 'DO' },
+  { name: 'Lopesan Costa Bávaro', city: 'Punta Cana', price: 'Desde RD$35,000', stars: 5, country: 'DO' },
 ];
 
 const hotelesInternacionales = [
@@ -38,6 +44,12 @@ const hotelesInternacionales = [
   { name: 'Hotel Dann Carlton', city: 'Medellín', price: 'Consultar', stars: 4, country: 'CO' },
   { name: 'Marriott Bogotá', city: 'Bogotá', price: 'Consultar', stars: 5, country: 'CO' },
   { name: 'Hotel Meliá Madrid', city: 'Madrid', price: 'Consultar', stars: 4, country: 'ES' },
+  { name: 'Hyatt Regency Orlando', city: 'Orlando', price: 'Consultar', stars: 4, country: 'US' },
+  { name: 'Waldorf Astoria', city: 'Nueva York', price: 'Consultar', stars: 5, country: 'US' },
+  { name: 'Decameron Cartagena', city: 'Cartagena', price: 'Consultar', stars: 4, country: 'CO' },
+  { name: 'Paradisus Cancún', city: 'Cancún', price: 'Consultar', stars: 5, country: 'MX' },
+  { name: 'InterContinental Madrid', city: 'Madrid', price: 'Consultar', stars: 5, country: 'ES' },
+  { name: 'Sheraton Lima', city: 'Lima', price: 'Consultar', stars: 5, country: 'PE' },
 ];
 
 const tabs: { key: TabKey; label: string; icon: string }[] = [

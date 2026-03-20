@@ -36,7 +36,7 @@ export default function DestinationsSection() {
       <div className="section-container">
         <span className="section-eyebrow">Destinos</span>
         <RevealText tag="h2" className="section-title">
-          ¿A Dónde Quieres Volar?
+          ¿A Dónde Quieres Viajar?
         </RevealText>
         <p className="section-subtitle">
           Vuelos ida y vuelta desde cualquier origen. Precios referenciales — consulta disponibilidad actual.
@@ -68,7 +68,7 @@ export default function DestinationsSection() {
             <motion.a
               key={d.code}
               className="dest-card"
-              href={`https://wa.me/18298740109?text=${encodeURIComponent(`Hola! Me interesa volar a ${d.city} (${d.price})`)}`}
+              href={`https://wa.me/18298740109?text=${encodeURIComponent(`Hola! Me interesa viajar a ${d.city} (${d.price})`)}`}
               target="_blank"
               rel="noopener noreferrer"
               variants={fadeInUp}
