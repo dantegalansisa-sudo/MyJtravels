@@ -28,11 +28,16 @@ export default function PackagesSection() {
   return (
     <section className="resorts" id="resorts" ref={ref}>
       {/* Hero banner con imagen de fondo */}
-      <div className="resorts__hero">
-        <img src="/imagenes/ofertas.jpeg" alt="Ofertas en Resorts" className="resorts__hero-img" />
+      <div
+        className="resorts__hero"
+        style={{ backgroundImage: 'url(/imagenes/ofertas.jpeg)' }}
+      >
         <div className="resorts__hero-overlay" />
         <div className="resorts__hero-content section-container">
-          <span className="resorts__offer-badge">OFERTA</span>
+          <div className="resorts__offer-badge">
+            <span className="resorts__offer-badge-text">OFERTA</span>
+            <span className="resorts__offer-badge-sub">Todo Incluido</span>
+          </div>
           <span className="section-eyebrow resorts__eyebrow">Ofertas en Resorts</span>
           <RevealText tag="h2" className="section-title resorts__title">
             Disponibilidad Zona Este / Norte
