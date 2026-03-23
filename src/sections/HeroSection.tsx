@@ -1,13 +1,7 @@
 import { motion } from 'framer-motion';
-import { useState } from 'react';
 import MagneticButton from '../components/MagneticButton';
+import FlightSearchWidget from '../components/FlightSearchWidget';
 import './HeroSection.css';
-
-const destinations = [
-  'Nueva York', 'Miami', 'Boston', 'Medellín', 'Bogotá', 'Madrid',
-  'Curazao', 'Punta Cana', 'Cartagena', 'Costa Rica', 'Cancún',
-  'San Juan PR', 'Lima / Perú', 'Chile',
-];
 
 const stats = [
   { value: '5,000+', label: 'Clientes Felices' },
@@ -16,14 +10,6 @@ const stats = [
 ];
 
 export default function HeroSection() {
-  const [selectedDest, setSelectedDest] = useState('');
-
-  const whatsappMessage = selectedDest
-    ? `Hola M&J Travels! Quiero cotizar un vuelo a ${selectedDest}.`
-    : 'Hola M&J Travels! Quiero cotizar un vuelo.';
-
-  const whatsappUrl = `https://wa.me/18298740109?text=${encodeURIComponent(whatsappMessage)}`;
-
   return (
     <section className="hero" id="inicio">
       {/* Video de fondo */}
@@ -34,107 +20,43 @@ export default function HeroSection() {
         <div className="hero__video-overlay" />
       </div>
 
-      <div className="hero__grid section-container">
-        {/* ===== LEFT — Text ===== */}
-        <div className="hero__left">
-          <motion.div
-            className="hero__badge"
-            initial={{ opacity: 0, y: 12 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.1 }}
-          >
-            <img src="/imagenes/logo.png" alt="M&J Travels" className="hero__badge-logo" />
-            <span>Agencia Registrada · CESDN</span>
-          </motion.div>
-
-          <motion.h1
-            className="hero__title"
-            initial={{ opacity: 0, y: 25 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-          >
-            El Mundo Te Espera,
-            <br />
-            <span className="hero__title-accent">Nosotros Te Llevamos</span>
-          </motion.h1>
-
-          <motion.p
-            className="hero__subtitle"
-            initial={{ opacity: 0, y: 15 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.4 }}
-          >
-            Vuelos, hoteles, tours y cruceros. Te gestionamos tu viaje
-            desde cualquier parte del mundo hacia el destino que sueñas.
-          </motion.p>
-
-          <motion.div
-            className="hero__search"
-            initial={{ opacity: 0, y: 15 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.55 }}
-          >
-            <select
-              className="hero__select"
-              value={selectedDest}
-              onChange={(e) => setSelectedDest(e.target.value)}
+      <div className="hero__content section-container">
+        {/* Top row: text left + offer card right */}
+        <div className="hero__top">
+          <div className="hero__left">
+            <motion.div
+              className="hero__badge"
+              initial={{ opacity: 0, y: 12 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.1 }}
             >
-              <option value="">¿A dónde quieres volar?</option>
-              {destinations.map((d) => (
-                <option key={d} value={d}>{d}</option>
-              ))}
-              <option value="Otro destino">Otro destino...</option>
-            </select>
-            <MagneticButton
-              href={whatsappUrl}
-              className="hero__search-btn"
-              target="_blank"
+              <img src="/imagenes/logo.png" alt="M&J Travels" className="hero__badge-logo" />
+              <span>Agencia Registrada · CESDN</span>
+            </motion.div>
+
+            <motion.h1
+              className="hero__title"
+              initial={{ opacity: 0, y: 25 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.2 }}
             >
-              Cotizar Gratis →
-            </MagneticButton>
-          </motion.div>
+              El Mundo Te Espera,
+              <br />
+              <span className="hero__title-accent">Nosotros Te Llevamos</span>
+            </motion.h1>
 
-          <motion.div
-            className="hero__actions"
-            initial={{ opacity: 0, y: 15 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.7 }}
-          >
-            <MagneticButton
-              href="https://wa.me/18298740109?text=Hola!%20Quiero%20ver%20las%20ofertas%20de%20vuelos."
-              className="btn-primary"
-              target="_blank"
+            <motion.p
+              className="hero__subtitle"
+              initial={{ opacity: 0, y: 15 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.4 }}
             >
-              Ver Ofertas de Vuelos
-            </MagneticButton>
-            <MagneticButton href="#destinos" className="btn-ghost">
-              Explorar Destinos
-            </MagneticButton>
-          </motion.div>
+              Vuelos, hoteles, tours y cruceros. Te gestionamos tu viaje
+              desde cualquier parte del mundo hacia el destino que sueñas.
+            </motion.p>
+          </div>
 
-          {/* Stats */}
-          <motion.div
-            className="hero__stats"
-            initial={{ opacity: 0, y: 15 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.85 }}
-          >
-            {stats.map((stat, i) => (
-              <div key={i} className="hero__stat">
-                <span className="hero__stat-value">{stat.value}</span>
-                <span className="hero__stat-label">{stat.label}</span>
-              </div>
-            ))}
-          </motion.div>
-        </div>
-
-        {/* ===== RIGHT — Floating offer card ===== */}
-        <motion.div
-          className="hero__right"
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.3 }}
-        >
+          {/* Offer card */}
           <motion.div
             className="hero__offer"
             initial={{ opacity: 0, x: 20 }}
@@ -153,6 +75,24 @@ export default function HeroSection() {
               Reservar →
             </MagneticButton>
           </motion.div>
+        </div>
+
+        {/* Flight Search Widget */}
+        <FlightSearchWidget />
+
+        {/* Stats */}
+        <motion.div
+          className="hero__stats"
+          initial={{ opacity: 0, y: 15 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 1 }}
+        >
+          {stats.map((stat, i) => (
+            <div key={i} className="hero__stat">
+              <span className="hero__stat-value">{stat.value}</span>
+              <span className="hero__stat-label">{stat.label}</span>
+            </div>
+          ))}
         </motion.div>
       </div>
     </section>
