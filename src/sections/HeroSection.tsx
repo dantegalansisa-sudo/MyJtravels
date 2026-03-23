@@ -134,12 +134,17 @@ export default function HeroSection() {
           transition={{ duration: 0.8, delay: 0.3, ease: [0.25, 0.1, 0.25, 1] }}
         >
           <div className="hero__image-wrapper">
-            <img
-              src="/newimagenportada/turismo-new.png"
-              alt="Turista lista para viajar por el mundo"
-              className="hero__image"
-              loading="eager"
-            />
+            <video
+              className="hero__video"
+              autoPlay
+              muted
+              loop
+              playsInline
+              poster="/newimagenportada/turismo-new.png"
+            >
+              <source src="/imagenes/hero-video.mp4" type="video/mp4" />
+            </video>
+            <div className="hero__video-overlay" />
           </div>
 
           {/* Floating offer card */}
