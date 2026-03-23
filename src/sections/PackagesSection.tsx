@@ -27,85 +27,79 @@ export default function PackagesSection() {
 
   return (
     <section className="resorts" id="resorts" ref={ref}>
-      {/* Hero banner con imagen de fondo */}
-      <div
-        className="resorts__hero"
-        style={{ backgroundImage: 'url(/imagenes/ofertas.jpeg)' }}
-      >
-        <div className="resorts__hero-overlay" />
-        <div className="resorts__hero-content section-container">
+      <div className="resorts__layout">
+        {/* Imagen izquierda */}
+        <div className="resorts__image-side">
+          <img src="/imagenes/ofertas.jpeg" alt="Ofertas en Resorts" />
+          <div className="resorts__image-overlay" />
           <div className="resorts__offer-badge">
             <span className="resorts__offer-badge-text">OFERTA</span>
             <span className="resorts__offer-badge-sub">Todo Incluido</span>
           </div>
-          <span className="section-eyebrow resorts__eyebrow">Ofertas en Resorts</span>
+        </div>
+
+        {/* Información derecha */}
+        <div className="resorts__content-side">
+          <span className="section-eyebrow">Ofertas en Resorts</span>
           <RevealText tag="h2" className="section-title resorts__title">
-            Disponibilidad Zona Este / Norte
+            Ofertas Exclusivas En Resorts
           </RevealText>
-          <p className="resorts__hero-sub">
+          <p className="resorts__sub">
             Tarifas de 2 adultos por 3 noches · Todo incluido · A partir del 20 Marzo 2026
           </p>
-        </div>
-      </div>
 
-      {/* Contenido con tabs */}
-      <div className="section-container resorts__body">
-        <div className="resorts__tabs">
-          <button
-            className={`resorts__tab ${zone === 'este' ? 'resorts__tab--active' : ''}`}
-            onClick={() => setZone('este')}
-          >
-            <span className="resorts__tab-icon">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
-            </span>
-            Zona Este
-            <span className="resorts__tab-count">{zonaEste.length}</span>
-          </button>
-          <button
-            className={`resorts__tab ${zone === 'norte' ? 'resorts__tab--active' : ''}`}
-            onClick={() => setZone('norte')}
-          >
-            <span className="resorts__tab-icon">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
-            </span>
-            Zona Norte
-            <span className="resorts__tab-count">{zonaNorte.length}</span>
-          </button>
-        </div>
-
-        <motion.div
-          className="resorts__list"
-          variants={staggerChildren(0.07)}
-          initial="hidden"
-          animate={isInView ? 'visible' : 'hidden'}
-          key={zone}
-        >
-          {items.map((item, i) => (
-            <motion.a
-              className="offer-row"
-              key={item.resort}
-              variants={fadeInUp}
-              href={`https://wa.me/18298740109?text=${encodeURIComponent(`Hola! Me interesa la oferta del resort ${item.resort} (${item.price})`)}`}
-              target="_blank"
-              rel="noopener noreferrer"
+          {/* Tabs */}
+          <div className="resorts__tabs">
+            <button
+              className={`resorts__tab ${zone === 'este' ? 'resorts__tab--active' : ''}`}
+              onClick={() => setZone('este')}
             >
-              <div className="offer-row__rank">{String(i + 1).padStart(2, '0')}</div>
-              <div className="offer-row__info">
-                <h3 className="offer-row__name">{item.resort}</h3>
-                <span className="offer-row__detail">{item.detail}</span>
-              </div>
-              <div className="offer-row__right">
-                <span className="offer-row__price">{item.price}</span>
-                <span className="offer-row__cta">Reservar →</span>
-              </div>
-            </motion.a>
-          ))}
-        </motion.div>
+              Zona Este
+              <span className="resorts__tab-count">{zonaEste.length}</span>
+            </button>
+            <button
+              className={`resorts__tab ${zone === 'norte' ? 'resorts__tab--active' : ''}`}
+              onClick={() => setZone('norte')}
+            >
+              Zona Norte
+              <span className="resorts__tab-count">{zonaNorte.length}</span>
+            </button>
+          </div>
 
-        <div className="resorts__bottom">
+          {/* Offer list */}
+          <motion.div
+            className="resorts__list"
+            variants={staggerChildren(0.07)}
+            initial="hidden"
+            animate={isInView ? 'visible' : 'hidden'}
+            key={zone}
+          >
+            {items.map((item, i) => (
+              <motion.a
+                className="offer-row"
+                key={item.resort}
+                variants={fadeInUp}
+                href={`https://wa.me/18298740109?text=${encodeURIComponent(`Hola! Me interesa la oferta del resort ${item.resort} (${item.price})`)}`}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <div className="offer-row__rank">{String(i + 1).padStart(2, '0')}</div>
+                <div className="offer-row__info">
+                  <h3 className="offer-row__name">{item.resort}</h3>
+                  <span className="offer-row__detail">{item.detail}</span>
+                </div>
+                <div className="offer-row__right">
+                  <span className="offer-row__price">{item.price}</span>
+                  <span className="offer-row__cta">Reservar →</span>
+                </div>
+              </motion.a>
+            ))}
+          </motion.div>
+
           <p className="resorts__disclaimer">
-            *Tarifas para 2 adultos · Disponibilidad sujeta a cambio · Precios no incluyen impuestos
+            *Tarifas para 2 adultos · Disponibilidad sujeta a cambio
           </p>
+
           <MagneticButton
             href="https://wa.me/18298740109?text=Hola!%20Quiero%20información%20sobre%20las%20ofertas%20de%20resorts."
             className="resorts__main-cta"
