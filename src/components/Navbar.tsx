@@ -6,7 +6,7 @@ const links = [
   { label: 'Inicio', href: '#' },
   { label: 'Destinos', href: '#destinos' },
   { label: 'Vuelos', href: '#vuelos' },
-  { label: 'Paquetes', href: '#paquetes' },
+  { label: 'Resorts', href: '#resorts' },
   { label: 'Servicios', href: '#servicios' },
   { label: 'Contacto', href: '#contacto' },
 ];

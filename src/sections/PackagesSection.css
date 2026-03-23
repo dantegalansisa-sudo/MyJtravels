@@ -1,45 +1,58 @@
-/* ===== PACKAGES ===== */
-.packages {
+/* ===== RESORTS ===== */
+.resorts {
   padding: var(--section-padding);
-  background: var(--color-bg-surface);
+  background: var(--color-bg);
 }
 
-.packages__list {
-  display: flex;
-  flex-direction: column;
+.resorts__grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
   gap: 32px;
 }
 
-/* Package Card — horizontal layout */
-.pkg-card {
-  display: grid;
-  grid-template-columns: 380px 1fr;
+/* Resort Card */
+.resort-card {
   background: white;
   border-radius: 24px;
   overflow: hidden;
   border: 1px solid var(--color-border);
   box-shadow: var(--shadow-card);
-  transition: transform 0.3s, box-shadow 0.3s;
+  transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+  display: flex;
+  flex-direction: column;
 }
 
-.pkg-card:hover {
-  transform: translateY(-4px);
-  box-shadow: var(--shadow-card-hover);
+.resort-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 16px 48px rgba(26, 35, 126, 0.14);
 }
 
-.pkg-card__image {
+/* Hero Image */
+.resort-card__hero {
   position: relative;
+  height: 260px;
   overflow: hidden;
 }
 
-.pkg-card__image img {
+.resort-card__hero img {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  min-height: 300px;
+  transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
-.pkg-card__tag {
+.resort-card:hover .resort-card__hero img {
+  transform: scale(1.05);
+}
+
+.resort-card__overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(0deg, rgba(26, 35, 126, 0.7) 0%, rgba(26, 35, 126, 0.1) 50%, transparent 100%);
+  pointer-events: none;
+}
+
+.resort-card__tag {
   position: absolute;
   top: 16px;
   left: 16px;
@@ -48,97 +61,239 @@
   font-size: 11px;
   font-weight: 800;
   text-transform: uppercase;
-  padding: 5px 14px;
+  letter-spacing: 0.5px;
+  padding: 6px 16px;
   border-radius: 100px;
+  box-shadow: 0 2px 12px rgba(124, 179, 66, 0.3);
 }
 
-.pkg-card__body {
-  padding: 36px;
+.resort-card__hero-info {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+}
+
+.resort-card__location {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.9);
+  font-weight: 500;
+}
+
+.resort-card__highlight {
+  font-family: var(--font-display);
+  font-size: 20px;
+  font-weight: 800;
+  color: white;
+  background: var(--gradient-offer);
+  padding: 6px 16px;
+  border-radius: 12px;
+  box-shadow: 0 2px 12px rgba(255, 143, 0, 0.3);
+}
+
+/* Body */
+.resort-card__body {
+  padding: 28px;
   display: flex;
   flex-direction: column;
+  flex: 1;
 }
 
-.pkg-card__category {
+.resort-card__header {
+  margin-bottom: 16px;
+}
+
+.resort-card__category {
   font-size: 11px;
   letter-spacing: 3px;
   text-transform: uppercase;
   color: var(--color-green);
-  font-weight: 600;
-  margin-bottom: 8px;
+  font-weight: 700;
+  display: block;
+  margin-bottom: 6px;
 }
 
-.pkg-card__name {
+.resort-card__name {
   font-family: var(--font-display);
-  font-size: 26px;
+  font-size: 24px;
   font-weight: 800;
   color: var(--color-navy);
-  margin-bottom: 16px;
+  line-height: 1.2;
 }
 
-.pkg-card__meta {
+/* Perks */
+.resort-card__perks {
   display: flex;
-  gap: 20px;
-  font-size: 14px;
-  color: var(--color-text-secondary);
+  flex-wrap: wrap;
+  gap: 8px;
   margin-bottom: 20px;
 }
 
-.pkg-card__pricing {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  margin-bottom: 12px;
+.resort-card__perk {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--color-green-dark);
+  background: var(--color-green-glow);
+  padding: 5px 12px;
+  border-radius: 100px;
+  border: 1px solid var(--color-border-green);
 }
 
-.pkg-card__price-row {
+.resort-card__perk svg {
+  color: var(--color-green);
+  flex-shrink: 0;
+}
+
+/* Meta */
+.resort-card__meta {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 16px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.resort-card__dates {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 13px;
+  color: var(--color-text-secondary);
+  font-weight: 500;
+}
+
+.resort-card__dates svg {
+  color: var(--color-navy-light);
+  flex-shrink: 0;
+}
+
+.resort-card__nights {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--color-navy);
+  background: var(--color-bg-surface);
+  padding: 4px 12px;
+  border-radius: 100px;
+}
+
+/* Pricing */
+.resort-card__pricing {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-bottom: 16px;
+}
+
+.resort-card__price-row {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 8px 14px;
+  padding: 10px 14px;
   background: var(--color-bg-surface);
-  border-radius: 10px;
+  border-radius: 12px;
+  transition: background 0.2s;
 }
 
-.pkg-card__type {
+.resort-card__price-row:hover {
+  background: var(--color-bg-elevated);
+}
+
+.resort-card__type {
   font-size: 13px;
   font-weight: 500;
   color: var(--color-text-secondary);
 }
 
-.pkg-card__price {
+.resort-card__price {
   font-family: var(--font-display);
   font-size: 16px;
   font-weight: 800;
   color: var(--color-gold);
 }
 
-.pkg-card__kids {
-  font-size: 13px;
-  color: var(--color-green-dark);
-  font-weight: 500;
-  margin-bottom: 4px;
-}
-
-.pkg-card__note {
-  font-size: 12px;
-  color: var(--color-text-muted);
-  font-style: italic;
+/* Footer */
+.resort-card__footer {
   margin-bottom: 20px;
 }
 
-/* Responsive */
-@media (max-width: 768px) {
-  .pkg-card {
+.resort-card__kids {
+  font-size: 13px;
+  color: var(--color-green-dark);
+  font-weight: 600;
+  margin-bottom: 2px;
+}
+
+.resort-card__note {
+  font-size: 11px;
+  color: var(--color-text-muted);
+  font-style: italic;
+}
+
+/* CTA Button */
+.resort-card__cta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  width: 100%;
+  padding: 14px 24px;
+  background: var(--gradient-navy);
+  color: white;
+  font-family: var(--font-display);
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  border: none;
+  border-radius: 14px;
+  cursor: pointer;
+  text-decoration: none;
+  transition: box-shadow 0.3s, transform 0.2s;
+  margin-top: auto;
+}
+
+.resort-card__cta:hover {
+  box-shadow: 0 4px 20px rgba(26, 35, 126, 0.3);
+}
+
+.resort-card__cta svg {
+  opacity: 0.9;
+}
+
+/* ===== Responsive ===== */
+@media (max-width: 900px) {
+  .resorts__grid {
     grid-template-columns: 1fr;
+    max-width: 540px;
+    margin: 0 auto;
   }
-  .pkg-card__image img {
-    min-height: 200px;
-    max-height: 220px;
+}
+
+@media (max-width: 768px) {
+  .resort-card__hero {
+    height: 200px;
   }
-  .pkg-card__body {
-    padding: 24px;
+
+  .resort-card__body {
+    padding: 22px;
   }
-  .pkg-card__name {
-    font-size: 22px;
+
+  .resort-card__name {
+    font-size: 20px;
+  }
+
+  .resort-card__highlight {
+    font-size: 16px;
+    padding: 5px 12px;
   }
 }
