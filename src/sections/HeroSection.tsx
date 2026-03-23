@@ -128,23 +128,13 @@ export default function HeroSection() {
           </motion.div>
         </div>
 
-        {/* ===== RIGHT — Image ===== */}
+        {/* ===== RIGHT — Floating offer card ===== */}
         <motion.div
           className="hero__right"
-          initial={{ opacity: 0, y: 30, scale: 0.97 }}
-          animate={{ opacity: 1, y: 0, scale: 1 }}
-          transition={{ duration: 0.8, delay: 0.3, ease: [0.25, 0.1, 0.25, 1] }}
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.3 }}
         >
-          <div className="hero__image-wrapper">
-            <img
-              src="/newimagenportada/turismo-new.png"
-              alt="Turista lista para viajar por el mundo"
-              className="hero__image"
-              loading="eager"
-            />
-          </div>
-
-          {/* Floating offer card */}
           <motion.div
             className="hero__offer"
             initial={{ opacity: 0, x: 20 }}
