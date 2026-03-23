@@ -51,12 +51,12 @@ export default function PackagesSection() {
   return (
     <section className="resorts" id="resorts" ref={ref}>
       <div className="section-container">
-        <span className="section-eyebrow">Resorts Todo Incluido</span>
+        <span className="section-eyebrow">Ofertas en Resorts</span>
         <RevealText tag="h2" className="section-title">
-          Vive La Experiencia All-Inclusive
+          Ofertas Exclusivas En Resorts
         </RevealText>
         <p className="section-subtitle">
-          Los mejores resorts nacionales con todo incluido. Tu escape perfecto te espera.
+          Aprovecha estas ofertas todo incluido antes de que se agoten. Cupos limitados.
         </p>
 
         <motion.div
@@ -70,6 +70,7 @@ export default function PackagesSection() {
               <div className="resort-card__hero">
                 <img src={r.image} alt={r.name} loading="lazy" />
                 <div className="resort-card__overlay" />
+                <span className="resort-card__offer-badge">OFERTA</span>
                 {r.tag && <span className="resort-card__tag">{r.tag}</span>}
                 <div className="resort-card__hero-info">
                   <span className="resort-card__location">
