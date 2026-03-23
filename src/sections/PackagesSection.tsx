@@ -1,139 +1,115 @@
 import { motion, useInView } from 'framer-motion';
-import { useRef } from 'react';
+import { useRef, useState } from 'react';
 import RevealText from '../components/RevealText';
 import MagneticButton from '../components/MagneticButton';
 import { staggerChildren, fadeInUp } from '../utils/easings';
 import './PackagesSection.css';
 
-const resorts = [
-  {
-    name: 'Marien Puerto Plata',
-    category: 'Deluxe Garden',
-    location: 'Puerto Plata, RD',
-    dates: '02 – 04 Mayo 2026',
-    nights: 2,
-    highlight: 'Desde DOP 5,880',
-    perks: ['Todo Incluido', 'Playa privada', 'Piscina infinita'],
-    pricing: [
-      { type: 'SGL', price: 'DOP 8,220' },
-      { type: 'DBL', price: 'DOP 6,000' },
-      { type: 'TPL', price: 'DOP 5,880' },
-    ],
-    kids: 'Niños 7-12 años: DOP 2,100',
-    note: 'P/P por noche · Disponibilidad sujeta a cambio',
-    image: '/imagenes/Marien Puerto Plata.jpg',
-    tag: 'Próximamente',
-    whatsapp: 'https://wa.me/18298740109?text=Hola!%20Me%20interesa%20el%20resort%20Marien%20Puerto%20Plata.',
-  },
-  {
-    name: 'Nickelodeon Punta Cana',
-    category: 'Resort Familiar',
-    location: 'Punta Cana, RD',
-    dates: '23 Ago – 31 Oct',
-    nights: 2,
-    highlight: 'RD$52,164',
-    perks: ['Todo Incluido', 'Parque acuático', 'Kids Club'],
-    pricing: [
-      { type: '2 Adultos + 1 Niño (3-12)', price: 'RD$52,164' },
-    ],
-    kids: 'Niños 3-12 años incluidos',
-    note: 'Por 2 noches · Disponibilidad limitada',
-    image: '/imagenes/Nickelodeon Hotel Punta Cana.jpg',
-    tag: '¡Familiar!',
-    whatsapp: 'https://wa.me/18298740109?text=Hola!%20Me%20interesa%20el%20resort%20Nickelodeon%20Punta%20Cana.',
-  },
+const zonaEste = [
+  { resort: 'Whala Boca Chica', detail: '3 Noches', price: 'US$353' },
+  { resort: 'Santo Domingo Bay', detail: 'Deluxe Ocean View · 3 Noches', price: 'US$665' },
+  { resort: 'Dreams Dominicus', detail: 'Preferred Club Suite Tropical · 3 Noches', price: 'US$1,408' },
+  { resort: 'Catalonia Bayahibe', detail: '3 Noches', price: 'US$1,410' },
+  { resort: 'Catalonia Royal La Romana', detail: 'Deluxe Junior Suite · 3 Noches', price: 'US$1,656' },
+  { resort: 'Bahia Principe Grand La Romana', detail: 'Jr. Suite Superior · 4 Noches', price: 'RD$89,709' },
+];
+
+const zonaNorte = [
+  { resort: 'Marien Puerto Plata', detail: '3 Noches', price: 'US$420' },
+  { resort: 'Iberostar Waves Costa Dorada', detail: '4 Noches', price: 'RD$93,828' },
 ];
 
 export default function PackagesSection() {
   const ref = useRef<HTMLDivElement>(null);
   const isInView = useInView(ref, { once: true, margin: '-100px' });
+  const [zone, setZone] = useState<'este' | 'norte'>('este');
+  const items = zone === 'este' ? zonaEste : zonaNorte;
 
   return (
     <section className="resorts" id="resorts" ref={ref}>
-      <div className="section-container">
-        <span className="section-eyebrow">Ofertas en Resorts</span>
-        <RevealText tag="h2" className="section-title">
-          Ofertas Exclusivas En Resorts
-        </RevealText>
-        <p className="section-subtitle">
-          Aprovecha estas ofertas todo incluido antes de que se agoten. Cupos limitados.
-        </p>
+      {/* Hero banner con imagen de fondo */}
+      <div className="resorts__hero">
+        <img src="/imagenes/ofertas.jpeg" alt="Ofertas en Resorts" className="resorts__hero-img" />
+        <div className="resorts__hero-overlay" />
+        <div className="resorts__hero-content section-container">
+          <span className="resorts__offer-badge">OFERTA</span>
+          <span className="section-eyebrow resorts__eyebrow">Ofertas en Resorts</span>
+          <RevealText tag="h2" className="section-title resorts__title">
+            Disponibilidad Zona Este / Norte
+          </RevealText>
+          <p className="resorts__hero-sub">
+            Tarifas de 2 adultos por 3 noches · Todo incluido · A partir del 20 Marzo 2026
+          </p>
+        </div>
+      </div>
+
+      {/* Contenido con tabs */}
+      <div className="section-container resorts__body">
+        <div className="resorts__tabs">
+          <button
+            className={`resorts__tab ${zone === 'este' ? 'resorts__tab--active' : ''}`}
+            onClick={() => setZone('este')}
+          >
+            <span className="resorts__tab-icon">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            </span>
+            Zona Este
+            <span className="resorts__tab-count">{zonaEste.length}</span>
+          </button>
+          <button
+            className={`resorts__tab ${zone === 'norte' ? 'resorts__tab--active' : ''}`}
+            onClick={() => setZone('norte')}
+          >
+            <span className="resorts__tab-icon">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            </span>
+            Zona Norte
+            <span className="resorts__tab-count">{zonaNorte.length}</span>
+          </button>
+        </div>
 
         <motion.div
-          className="resorts__grid"
-          variants={staggerChildren(0.15)}
+          className="resorts__list"
+          variants={staggerChildren(0.07)}
           initial="hidden"
           animate={isInView ? 'visible' : 'hidden'}
+          key={zone}
         >
-          {resorts.map((r) => (
-            <motion.div className="resort-card" key={r.name} variants={fadeInUp}>
-              <div className="resort-card__hero">
-                <img src={r.image} alt={r.name} loading="lazy" />
-                <div className="resort-card__overlay" />
-                <span className="resort-card__offer-badge">OFERTA</span>
-                {r.tag && <span className="resort-card__tag">{r.tag}</span>}
-                <div className="resort-card__hero-info">
-                  <span className="resort-card__location">
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
-                    {r.location}
-                  </span>
-                  <span className="resort-card__highlight">{r.highlight}</span>
-                </div>
+          {items.map((item, i) => (
+            <motion.a
+              className="offer-row"
+              key={item.resort}
+              variants={fadeInUp}
+              href={`https://wa.me/18298740109?text=${encodeURIComponent(`Hola! Me interesa la oferta del resort ${item.resort} (${item.price})`)}`}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <div className="offer-row__rank">{String(i + 1).padStart(2, '0')}</div>
+              <div className="offer-row__info">
+                <h3 className="offer-row__name">{item.resort}</h3>
+                <span className="offer-row__detail">{item.detail}</span>
               </div>
-
-              <div className="resort-card__body">
-                <div className="resort-card__header">
-                  <span className="resort-card__category">{r.category}</span>
-                  <h3 className="resort-card__name">{r.name}</h3>
-                </div>
-
-                <div className="resort-card__perks">
-                  {r.perks.map((perk) => (
-                    <span className="resort-card__perk" key={perk}>
-                      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
-                      {perk}
-                    </span>
-                  ))}
-                </div>
-
-                <div className="resort-card__meta">
-                  <span className="resort-card__dates">
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
-                    {r.dates}
-                  </span>
-                  <span className="resort-card__nights">{r.nights} noches</span>
-                </div>
-
-                <div className="resort-card__pricing">
-                  {r.pricing.map((p) => (
-                    <div className="resort-card__price-row" key={p.type}>
-                      <span className="resort-card__type">{p.type}</span>
-                      <span className="resort-card__price">{p.price}</span>
-                    </div>
-                  ))}
-                </div>
-
-                <div className="resort-card__footer">
-                  <p className="resort-card__kids">{r.kids}</p>
-                  <p className="resort-card__note">{r.note}</p>
-                </div>
-
-                <MagneticButton
-                  href={r.whatsapp}
-                  className="resort-card__cta"
-                  target="_blank"
-                >
-                  Reservar Ahora
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-                </MagneticButton>
+              <div className="offer-row__right">
+                <span className="offer-row__price">{item.price}</span>
+                <span className="offer-row__cta">Reservar →</span>
               </div>
-            </motion.div>
+            </motion.a>
           ))}
         </motion.div>
 
-        <p className="section-disclaimer">
-          *Precios referenciales. Sujetos a disponibilidad y cambio sin previo aviso.
-        </p>
+        <div className="resorts__bottom">
+          <p className="resorts__disclaimer">
+            *Tarifas para 2 adultos · Disponibilidad sujeta a cambio · Precios no incluyen impuestos
+          </p>
+          <MagneticButton
+            href="https://wa.me/18298740109?text=Hola!%20Quiero%20información%20sobre%20las%20ofertas%20de%20resorts."
+            className="resorts__main-cta"
+            target="_blank"
+          >
+            Consultar Disponibilidad
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+          </MagneticButton>
+        </div>
       </div>
     </section>
   );
