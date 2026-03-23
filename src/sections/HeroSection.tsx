@@ -26,10 +26,12 @@ export default function HeroSection() {
 
   return (
     <section className="hero" id="inicio">
-      {/* Decorative bg shapes */}
-      <div className="hero__bg-shapes">
-        <div className="hero__shape hero__shape--1" />
-        <div className="hero__shape hero__shape--2" />
+      {/* Video de fondo */}
+      <div className="hero__video-bg">
+        <video autoPlay muted loop playsInline>
+          <source src="/imagenes/hero-video.mp4" type="video/mp4" />
+        </video>
+        <div className="hero__video-overlay" />
       </div>
 
       <div className="hero__grid section-container">
@@ -134,17 +136,12 @@ export default function HeroSection() {
           transition={{ duration: 0.8, delay: 0.3, ease: [0.25, 0.1, 0.25, 1] }}
         >
           <div className="hero__image-wrapper">
-            <video
-              className="hero__video"
-              autoPlay
-              muted
-              loop
-              playsInline
-              poster="/newimagenportada/turismo-new.png"
-            >
-              <source src="/imagenes/hero-video.mp4" type="video/mp4" />
-            </video>
-            <div className="hero__video-overlay" />
+            <img
+              src="/newimagenportada/turismo-new.png"
+              alt="Turista lista para viajar por el mundo"
+              className="hero__image"
+              loading="eager"
+            />
           </div>
 
           {/* Floating offer card */}

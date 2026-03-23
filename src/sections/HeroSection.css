@@ -8,35 +8,29 @@
   background: linear-gradient(160deg, #0b1024 0%, #111836 40%, #0f1530 100%);
 }
 
-/* ===== DECORATIVE BG SHAPES ===== */
-.hero__bg-shapes {
+/* ===== VIDEO BACKGROUND ===== */
+.hero__video-bg {
   position: absolute;
   inset: 0;
   z-index: 0;
-  pointer-events: none;
   overflow: hidden;
 }
 
-.hero__shape {
+.hero__video-bg video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.hero__video-overlay {
   position: absolute;
-  border-radius: 50%;
-  filter: blur(100px);
-}
-
-.hero__shape--1 {
-  width: 600px;
-  height: 600px;
-  background: rgba(124, 179, 66, 0.08);
-  top: -200px;
-  right: -100px;
-}
-
-.hero__shape--2 {
-  width: 500px;
-  height: 500px;
-  background: rgba(26, 35, 126, 0.1);
-  bottom: -200px;
-  left: -150px;
+  inset: 0;
+  background: linear-gradient(
+    160deg,
+    rgba(11, 16, 36, 0.85) 0%,
+    rgba(17, 24, 54, 0.75) 40%,
+    rgba(15, 21, 48, 0.65) 100%
+  );
 }
 
 /* ===== GRID — two columns ===== */
@@ -224,26 +218,7 @@
   object-fit: contain;
 }
 
-.hero__video {
-  width: 100%;
-  height: 100%;
-  min-height: 360px;
-  object-fit: cover;
-  display: block;
-  border-radius: 24px;
-}
 
-.hero__video-overlay {
-  position: absolute;
-  inset: 0;
-  border-radius: 24px;
-  background: linear-gradient(
-    180deg,
-    rgba(15, 20, 40, 0.1) 0%,
-    rgba(15, 20, 40, 0.3) 100%
-  );
-  pointer-events: none;
-}
 
 /* ===== FLOATING OFFER CARD ===== */
 .hero__offer {
