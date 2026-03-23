@@ -86,13 +86,13 @@ export default function FooterSection() {
 
         <div className="footer__bottom">
           <span>&copy; 2025 M&J Travels SRL. Todos los derechos reservados.</span>
-          <div className="footer__bottom-links">
-            <button className="footer__legal-link" onClick={() => setPrivacyOpen(true)}>
-              Política de Privacidad
-            </button>
-            <span className="footer__bottom-sep">·</span>
-            <span>Diseñado por <a href="https://instagram.com/nexixtech" target="_blank" rel="noopener noreferrer">NEXIX Tech Studio</a></span>
-          </div>
+          <span>Diseñado por <a href="https://instagram.com/nexixtech" target="_blank" rel="noopener noreferrer">NEXIX Tech Studio</a></span>
+        </div>
+
+        <div className="footer__legal">
+          <button className="footer__legal-link" onClick={() => setPrivacyOpen(true)}>
+            Política de Privacidad
+          </button>
         </div>
       </div>
 

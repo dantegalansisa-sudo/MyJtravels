@@ -114,16 +114,6 @@
   color: rgba(255, 255, 255, 0.35);
 }
 
-.footer__bottom-links {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-
-.footer__bottom-sep {
-  color: rgba(255, 255, 255, 0.2);
-}
-
 .footer__bottom a {
   color: var(--color-green-vivid);
   font-weight: 600;
@@ -133,19 +123,30 @@
   color: var(--color-green);
 }
 
+/* Legal — última fila del footer */
+.footer__legal {
+  text-align: center;
+  margin-top: 20px;
+  padding-top: 16px;
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+}
+
 .footer__legal-link {
   background: none;
-  border: none;
-  color: rgba(255, 255, 255, 0.5);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  color: rgba(255, 255, 255, 0.6);
   font-size: 13px;
-  font-weight: 500;
+  font-weight: 600;
   cursor: pointer;
-  padding: 0;
-  transition: color 0.2s;
+  padding: 8px 24px;
+  border-radius: 100px;
+  transition: all 0.2s;
 }
 
 .footer__legal-link:hover {
-  color: var(--color-green-vivid);
+  color: white;
+  border-color: var(--color-green-vivid);
+  background: rgba(124, 179, 66, 0.1);
 }
 
 /* Responsive */
