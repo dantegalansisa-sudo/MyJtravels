@@ -51,7 +51,6 @@ export default function MagneticButton({
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
       style={{ x: springX, y: springY }}
-      data-cursor-hover
     >
       {children}
     </Tag>

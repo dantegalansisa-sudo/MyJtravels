@@ -1,4 +1,3 @@
-import CustomCursor from './components/CustomCursor';
 import Navbar from './components/Navbar';
 import WhatsAppButton from './components/WhatsAppButton';
 import HeroSection from './sections/HeroSection';
@@ -18,7 +17,6 @@ import FooterSection from './sections/FooterSection';
 function App() {
   return (
     <>
-      <CustomCursor />
       <Navbar />
       <HeroSection />
       <TrustBarSection />
