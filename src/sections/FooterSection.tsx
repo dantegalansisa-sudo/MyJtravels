@@ -1,4 +1,6 @@
+import { useState } from 'react';
 import MagneticButton from '../components/MagneticButton';
+import PrivacyModal from '../components/PrivacyModal';
 import './FooterSection.css';
 
 const destLinks = [
@@ -12,6 +14,8 @@ const serviceLinks = [
 ];
 
 export default function FooterSection() {
+  const [privacyOpen, setPrivacyOpen] = useState(false);
+
   return (
     <footer className="footer">
       <div className="section-container">
@@ -82,9 +86,17 @@ export default function FooterSection() {
 
         <div className="footer__bottom">
           <span>&copy; 2025 M&J Travels SRL. Todos los derechos reservados.</span>
-          <span>Diseñado por <a href="https://instagram.com/nexixtech" target="_blank" rel="noopener noreferrer">NEXIX Tech Studio</a></span>
+          <div className="footer__bottom-links">
+            <button className="footer__legal-link" onClick={() => setPrivacyOpen(true)}>
+              Política de Privacidad
+            </button>
+            <span className="footer__bottom-sep">·</span>
+            <span>Diseñado por <a href="https://instagram.com/nexixtech" target="_blank" rel="noopener noreferrer">NEXIX Tech Studio</a></span>
+          </div>
         </div>
       </div>
+
+      <PrivacyModal open={privacyOpen} onClose={() => setPrivacyOpen(false)} />
     </footer>
   );
 }

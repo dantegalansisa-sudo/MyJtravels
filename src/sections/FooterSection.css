@@ -114,6 +114,16 @@
   color: rgba(255, 255, 255, 0.35);
 }
 
+.footer__bottom-links {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.footer__bottom-sep {
+  color: rgba(255, 255, 255, 0.2);
+}
+
 .footer__bottom a {
   color: var(--color-green-vivid);
   font-weight: 600;
@@ -121,6 +131,21 @@
 
 .footer__bottom a:hover {
   color: var(--color-green);
+}
+
+.footer__legal-link {
+  background: none;
+  border: none;
+  color: rgba(255, 255, 255, 0.5);
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  padding: 0;
+  transition: color 0.2s;
+}
+
+.footer__legal-link:hover {
+  color: var(--color-green-vivid);
 }
 
 /* Responsive */
