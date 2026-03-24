@@ -3,11 +3,11 @@ import { useRef } from 'react';
 import './OfferStripSection.css';
 
 const offers = [
-  { route: 'Nueva York', code: 'JFK', price: 'RD$28,000', flag: '🇺🇸', tag: 'Más Popular' },
-  { route: 'Miami', code: 'MIA', price: 'RD$18,000', flag: '🇺🇸', tag: 'Oferta' },
-  { route: 'Medellín', code: 'MDE', price: 'RD$19,000', flag: '🇨🇴', tag: null },
-  { route: 'Curazao', code: 'CUR', price: 'RD$14,000', flag: '🇨🇼', tag: '¡Más Barato!' },
-  { route: 'Bogotá', code: 'BOG', price: 'RD$24,000', flag: '🇨🇴', tag: null },
+  { route: 'Nueva York', code: 'JFK', price: 'RD$28,000', tag: 'Más Popular' },
+  { route: 'Miami', code: 'MIA', price: 'RD$18,000', tag: 'Oferta' },
+  { route: 'Medellín', code: 'MDE', price: 'RD$19,000', tag: null },
+  { route: 'Curazao', code: 'CUR', price: 'RD$14,000', tag: '¡Más Barato!' },
+  { route: 'Bogotá', code: 'BOG', price: 'RD$24,000', tag: null },
 ];
 
 export default function OfferStripSection() {
@@ -49,7 +49,9 @@ export default function OfferStripSection() {
             >
               {o.tag && <span className="offer-strip__tag">{o.tag}</span>}
               <div className="offer-strip__card-top">
-                <span className="offer-strip__flag">{o.flag}</span>
+                <span className="offer-strip__plane-icon">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M17.8 19.2L16 11l3.5-3.5C21 6 21.5 4 21 3c-1-.5-3 0-4.5 1.5L13 8 4.8 6.2c-.5-.1-.9.1-1.1.5l-.3.5c-.2.5-.1 1 .3 1.3L9 12l-2 3H4l-1 1 3 2 2 3 1-1v-3l3-2 3.5 5.3c.3.4.8.5 1.3.3l.5-.2c.4-.3.6-.7.5-1.2z"/></svg>
+                </span>
                 <div className="offer-strip__route-info">
                   <span className="offer-strip__route">{o.route}</span>
                   <span className="offer-strip__code">SDQ → {o.code}</span>
