@@ -1,6 +1,7 @@
 import Navbar from './components/Navbar';
 import WhatsAppButton from './components/WhatsAppButton';
 import HeroSection from './sections/HeroSection';
+import OfferStripSection from './sections/OfferStripSection';
 import TrustBarSection from './sections/TrustBarSection';
 import DestinationsSection from './sections/DestinationsSection';
 import FlightOffersSection from './sections/FlightOffersSection';
@@ -19,6 +20,7 @@ function App() {
     <>
       <Navbar />
       <HeroSection />
+      <OfferStripSection />
       <TrustBarSection />
       <DestinationsSection />
       <FlightOffersSection />

@@ -1,13 +1,6 @@
 import { motion } from 'framer-motion';
-import MagneticButton from '../components/MagneticButton';
 import FlightSearchWidget from '../components/FlightSearchWidget';
 import './HeroSection.css';
-
-const stats = [
-  { value: '5,000+', label: 'Clientes Felices' },
-  { value: '15+', label: 'Destinos' },
-  { value: '10 Años', label: 'Experiencia' },
-];
 
 export default function HeroSection() {
   return (
@@ -21,78 +14,51 @@ export default function HeroSection() {
       </div>
 
       <div className="hero__content section-container">
-        {/* Top row: text left + offer card right */}
-        <div className="hero__top">
-          <div className="hero__left">
-            <motion.div
-              className="hero__badge"
-              initial={{ opacity: 0, y: 12 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.1 }}
-            >
-              <img src="/imagenes/logo.png" alt="M&J Travels" className="hero__badge-logo" />
-              <span>Agencia Registrada · CESDN</span>
-            </motion.div>
+        {/* Badge */}
+        <motion.div
+          className="hero__badge"
+          initial={{ opacity: 0, y: 12 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.1 }}
+        >
+          <img src="/imagenes/logo.png" alt="M&J Travels" className="hero__badge-logo" />
+          <span>Agencia Registrada · CESDN</span>
+        </motion.div>
 
-            <motion.h1
-              className="hero__title"
-              initial={{ opacity: 0, y: 25 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.2 }}
-            >
-              El Mundo Te Espera,
-              <br />
-              <span className="hero__title-accent">Nosotros Te Llevamos</span>
-            </motion.h1>
+        {/* Headline — 1 línea compacta */}
+        <motion.h1
+          className="hero__title"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.2 }}
+        >
+          Cotiza Tu Vuelo <span className="hero__title-accent">Al Mejor Precio</span>
+        </motion.h1>
 
-            <motion.p
-              className="hero__subtitle"
-              initial={{ opacity: 0, y: 15 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.4 }}
-            >
-              Vuelos, hoteles, tours y cruceros. Te gestionamos tu viaje
-              desde cualquier parte del mundo hacia el destino que sueñas.
-            </motion.p>
-          </div>
+        <motion.p
+          className="hero__sub"
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.35 }}
+        >
+          Vuelos, hoteles, paquetes y cruceros desde República Dominicana al mundo.
+        </motion.p>
 
-          {/* Offer card */}
-          <motion.div
-            className="hero__offer"
-            initial={{ opacity: 0, x: 20 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ delay: 1.2, duration: 0.6 }}
-          >
-            <div className="hero__offer-label">Oferta de la Semana</div>
-            <div className="hero__offer-route">Nueva York</div>
-            <div className="hero__offer-price">Desde RD$28,000</div>
-            <div className="hero__offer-note">Ida y vuelta</div>
-            <MagneticButton
-              href="https://wa.me/18298740109?text=Hola!%20Me%20interesa%20un%20vuelo%20a%20Nueva%20York%20por%20RD%2428%2C000"
-              className="hero__offer-cta"
-              target="_blank"
-            >
-              Reservar →
-            </MagneticButton>
-          </motion.div>
-        </div>
-
-        {/* Flight Search Widget */}
+        {/* Flight Search Widget — protagonista */}
         <FlightSearchWidget />
 
-        {/* Stats */}
+        {/* Trust micro-copy */}
         <motion.div
-          className="hero__stats"
-          initial={{ opacity: 0, y: 15 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 1 }}
+          className="hero__trust"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 1.2, duration: 0.5 }}
         >
-          {stats.map((stat, i) => (
-            <div key={i} className="hero__stat">
-              <span className="hero__stat-value">{stat.value}</span>
-              <span className="hero__stat-label">{stat.label}</span>
-            </div>
-          ))}
+          <span className="hero__trust-item">✓ Respuesta en menos de 5 min</span>
+          <span className="hero__trust-sep">·</span>
+          <span className="hero__trust-item">✓ Más de 5,000 familias confían en nosotros</span>
+          <span className="hero__trust-sep">·</span>
+          <span className="hero__trust-item">✓ 10 años de experiencia</span>
         </motion.div>
       </div>
     </section>
