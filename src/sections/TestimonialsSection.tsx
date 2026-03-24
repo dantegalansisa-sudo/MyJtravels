@@ -7,27 +7,27 @@ import './TestimonialsSection.css';
 const testimonials = [
   {
     name: 'Carmen Rodríguez',
+    initials: 'CR',
     location: 'Villa Mella, SDN',
     destination: 'Voló a Miami',
     text: 'M&J me consiguió el vuelo más barato que encontré. El proceso fue súper fácil por WhatsApp y me ayudaron con todo. ¡Ya reservé mi segundo viaje con ellos!',
     rating: 5,
-    avatar: '👩🏽',
   },
   {
     name: 'Ramón García',
+    initials: 'RG',
     location: 'Santo Domingo',
     destination: 'Viajó a Medellín',
     text: 'Bloquée mi boleto con solo RD$2,000 y pagué el resto después. Excelente servicio, muy profesionales. Mi familia quedó encantada con el viaje.',
     rating: 5,
-    avatar: '👨🏽',
   },
   {
     name: 'Yolanda Mercedes',
+    initials: 'YM',
     location: 'Santo Domingo Norte',
     destination: 'Paquete Punta Cana',
     text: 'Llevé a mis hijos a Punta Cana con el paquete que me recomendaron. Todo perfecto, hotel hermoso y el precio fue increíble. 100% recomendada.',
     rating: 5,
-    avatar: '👩🏾',
   },
 ];
 
@@ -59,7 +59,7 @@ export default function TestimonialsSection() {
               </div>
               <p className="testimonial-card__text">"{t.text}"</p>
               <div className="testimonial-card__author">
-                <span className="testimonial-card__avatar">{t.avatar}</span>
+                <span className="testimonial-card__avatar">{t.initials}</span>
                 <div>
                   <strong className="testimonial-card__name">{t.name}</strong>
                   <span className="testimonial-card__location">{t.location}</span>

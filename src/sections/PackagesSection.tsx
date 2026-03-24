@@ -45,7 +45,7 @@ export default function PackagesSection() {
             Ofertas Exclusivas En Resorts
           </RevealText>
           <p className="resorts__sub">
-            Tarifas de 2 adultos por 3 noches · Todo incluido · A partir del 20 Marzo 2026
+            Tarifas de 2 adultos por 3 noches · Todo incluido · Disponibilidad inmediata
           </p>
 
           {/* Tabs */}
@@ -97,7 +97,7 @@ export default function PackagesSection() {
           </motion.div>
 
           <p className="resorts__disclaimer">
-            *Tarifas para 2 adultos · Disponibilidad sujeta a cambio
+            *Tarifas para 2 adultos · Precios en US$ o RD$ según el resort · Disponibilidad sujeta a cambio
           </p>
 
           <MagneticButton

@@ -85,7 +85,7 @@ export default function FooterSection() {
         </div>
 
         <div className="footer__bottom">
-          <span>&copy; 2025 M&J Travels SRL. Todos los derechos reservados.</span>
+          <span>&copy; 2026 M&J Travels SRL. Todos los derechos reservados.</span>
           <span>Diseñado por <a href="https://instagram.com/nexixtech" target="_blank" rel="noopener noreferrer">NEXIX Tech Studio</a></span>
         </div>
 
