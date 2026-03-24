@@ -54,11 +54,18 @@ export default function HeroSection() {
           animate={{ opacity: 1 }}
           transition={{ delay: 1.2, duration: 0.5 }}
         >
-          <span className="hero__trust-item">✓ Respuesta en menos de 5 min</span>
-          <span className="hero__trust-sep">·</span>
-          <span className="hero__trust-item">✓ Más de 5,000 familias confían en nosotros</span>
-          <span className="hero__trust-sep">·</span>
-          <span className="hero__trust-item">✓ 10 años de experiencia</span>
+          <span className="hero__trust-item">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#7CB342" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+            Respuesta en menos de 5 min
+          </span>
+          <span className="hero__trust-item">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#7CB342" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+            Precio garantizado
+          </span>
+          <span className="hero__trust-item">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#7CB342" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+            Pago en pesos o dólares
+          </span>
         </motion.div>
       </div>
     </section>

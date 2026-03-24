@@ -96,21 +96,23 @@
 .hero__trust {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 20px;
   margin-top: 20px;
   flex-wrap: wrap;
   justify-content: center;
 }
 
 .hero__trust-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
   font-size: 12px;
-  color: rgba(255, 255, 255, 0.4);
+  color: rgba(255, 255, 255, 0.5);
   font-weight: 500;
 }
 
-.hero__trust-sep {
-  font-size: 12px;
-  color: rgba(255, 255, 255, 0.15);
+.hero__trust-item svg {
+  flex-shrink: 0;
 }
 
 /* ===== RESPONSIVE ===== */
@@ -137,10 +139,6 @@
 
   .hero__trust {
     flex-direction: column;
-    gap: 4px;
-  }
-
-  .hero__trust-sep {
-    display: none;
+    gap: 6px;
   }
 }
