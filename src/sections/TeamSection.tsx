@@ -5,7 +5,7 @@ import { staggerChildren, fadeInUp } from '../utils/easings';
 import './TeamSection.css';
 
 const leadership = {
-  image: '/imagenes/presidente y vice presidenta.jpeg',
+  image: '/imagenes/presidente-vicepresidenta.jpeg',
   members: [
     {
       name: 'Jesús de la Cruz Disla',
