@@ -2,10 +2,12 @@ import { motion, useInView } from 'framer-motion';
 import { useRef, useState } from 'react';
 import RevealText from '../components/RevealText';
 import MagneticButton from '../components/MagneticButton';
+import { useCollection } from '../hooks/useCollection';
+import type { Package } from '../types';
 import { staggerChildren, fadeInUp } from '../utils/easings';
 import './PackagesSection.css';
 
-const zonaEste = [
+const fallbackEste = [
   { resort: 'Whala Boca Chica', detail: '3 Noches', price: 'US$353' },
   { resort: 'Santo Domingo Bay', detail: 'Deluxe Ocean View · 3 Noches', price: 'US$665' },
   { resort: 'Dreams Dominicus', detail: 'Preferred Club Suite Tropical · 3 Noches', price: 'US$1,408' },
@@ -14,7 +16,7 @@ const zonaEste = [
   { resort: 'Bahia Principe Grand La Romana', detail: 'Jr. Suite Superior · 4 Noches', price: 'RD$89,709' },
 ];
 
-const zonaNorte = [
+const fallbackNorte = [
   { resort: 'Marien Puerto Plata', detail: '3 Noches', price: 'US$420' },
   { resort: 'Iberostar Waves Costa Dorada', detail: '4 Noches', price: 'RD$93,828' },
 ];
@@ -23,6 +25,9 @@ export default function PackagesSection() {
   const ref = useRef<HTMLDivElement>(null);
   const isInView = useInView(ref, { once: true, margin: '-100px' });
   const [zone, setZone] = useState<'este' | 'norte'>('este');
+  const { data: fbPkgs } = useCollection<Package>('packages');
+  const zonaEste = fbPkgs.length > 0 ? fbPkgs.filter(p => p.zone === 'este') : fallbackEste;
+  const zonaNorte = fbPkgs.length > 0 ? fbPkgs.filter(p => p.zone === 'norte') : fallbackNorte;
   const items = zone === 'este' ? zonaEste : zonaNorte;
 
   return (

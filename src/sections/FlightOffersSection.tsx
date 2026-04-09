@@ -2,12 +2,14 @@ import { motion, useInView } from 'framer-motion';
 import { useRef, useState } from 'react';
 import RevealText from '../components/RevealText';
 import MagneticButton from '../components/MagneticButton';
+import { useCollection } from '../hooks/useCollection';
+import type { Flight, Hotel } from '../types';
 import { staggerChildren, fadeInUp } from '../utils/easings';
 import './FlightOffersSection.css';
 
 type TabKey = 'vuelos' | 'hoteles-nac' | 'hoteles-int';
 
-const flights = [
+const fallbackFlights = [
   { to: 'JFK', city: 'Nueva York', price: 'RD$28,000', country: 'US' },
   { to: 'MIA', city: 'Miami', price: 'RD$18,000', country: 'US' },
   { to: 'BOS', city: 'Boston', price: 'RD$19,000', country: 'US' },
@@ -22,7 +24,7 @@ const flights = [
   { to: 'MAD', city: 'Madrid', price: 'Consultar', country: 'ES' },
 ];
 
-const hotelesNacionales = [
+const fallbackHotelesNac = [
   { name: 'Nickelodeon Resort', city: 'Punta Cana', price: 'Desde RD$52,164', stars: 5, country: 'DO' },
   { name: 'Hard Rock Hotel', city: 'Punta Cana', price: 'Desde RD$38,000', stars: 5, country: 'DO' },
   { name: 'Casa de Campo', city: 'La Romana', price: 'Desde RD$45,000', stars: 5, country: 'DO' },
@@ -37,7 +39,7 @@ const hotelesNacionales = [
   { name: 'Lopesan Costa Bávaro', city: 'Punta Cana', price: 'Desde RD$35,000', stars: 5, country: 'DO' },
 ];
 
-const hotelesInternacionales = [
+const fallbackHotelesInt = [
   { name: 'Hilton Times Square', city: 'Nueva York', price: 'Consultar', stars: 4, country: 'US' },
   { name: 'Fontainebleau Miami', city: 'Miami Beach', price: 'Consultar', stars: 5, country: 'US' },
   { name: 'RIU Cancún', city: 'Cancún', price: 'Consultar', stars: 5, country: 'MX' },
@@ -85,6 +87,14 @@ export default function FlightOffersSection() {
   const ref = useRef<HTMLDivElement>(null);
   const isInView = useInView(ref, { once: true, margin: '-100px' });
   const [activeTab, setActiveTab] = useState<TabKey>('vuelos');
+
+  const { data: fbFlights } = useCollection<Flight>('flights');
+  const { data: fbHotNac } = useCollection<Hotel>('hotelsNational');
+  const { data: fbHotInt } = useCollection<Hotel>('hotelsInternational');
+
+  const flights = fbFlights.length > 0 ? fbFlights : fallbackFlights;
+  const hotelesNacionales = fbHotNac.length > 0 ? fbHotNac : fallbackHotelesNac;
+  const hotelesInternacionales = fbHotInt.length > 0 ? fbHotInt : fallbackHotelesInt;
 
   return (
     <section className="flights" id="vuelos" ref={ref}>

@@ -1,10 +1,12 @@
 import { motion, useInView } from 'framer-motion';
 import { useRef } from 'react';
 import RevealText from '../components/RevealText';
+import { useCollection } from '../hooks/useCollection';
+import type { Testimonial } from '../types';
 import { staggerChildren, fadeInUp } from '../utils/easings';
 import './TestimonialsSection.css';
 
-const testimonials = [
+const fallbackTestimonials = [
   {
     name: 'Carmen Rodríguez',
     initials: 'CR',
@@ -34,6 +36,8 @@ const testimonials = [
 export default function TestimonialsSection() {
   const ref = useRef<HTMLDivElement>(null);
   const isInView = useInView(ref, { once: true, margin: '-100px' });
+  const { data: fbTest } = useCollection<Testimonial>('testimonials');
+  const testimonials = fbTest.length > 0 ? fbTest : fallbackTestimonials;
 
   return (
     <section className="testimonials" ref={ref}>

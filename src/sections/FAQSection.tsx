@@ -1,9 +1,11 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import RevealText from '../components/RevealText';
+import { useCollection } from '../hooks/useCollection';
+import type { FAQ } from '../types';
 import './FAQSection.css';
 
-const faqs = [
+const fallbackFaqs = [
   {
     q: '¿Cómo puedo reservar un vuelo?',
     a: 'Usa nuestro buscador de vuelos en la portada o escríbenos directamente por WhatsApp al 829-874-0109. Te enviamos la cotización en menos de 5 minutos y puedes reservar con solo RD$2,000.',
@@ -40,6 +42,8 @@ const faqs = [
 
 export default function FAQSection() {
   const [openIndex, setOpenIndex] = useState<number | null>(null);
+  const { data: fbFaqs } = useCollection<FAQ>('faqs');
+  const faqs = (fbFaqs.length > 0 ? fbFaqs : fallbackFaqs).map(f => ({ q: 'question' in f ? (f as FAQ).question : (f as { q: string }).q, a: 'answer' in f ? (f as FAQ).answer : (f as { a: string }).a }));
 
   const toggle = (i: number) => setOpenIndex(openIndex === i ? null : i);
 

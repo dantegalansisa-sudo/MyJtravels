@@ -1,10 +1,12 @@
 import { motion, useInView } from 'framer-motion';
 import { useRef } from 'react';
 import RevealText from '../components/RevealText';
+import { useCollection } from '../hooks/useCollection';
+import type { ServiceItem } from '../types';
 import { staggerChildren, fadeInUp } from '../utils/easings';
 import './ServicesSection.css';
 
-const services = [
+const fallbackServices = [
   { icon: '✈️', title: 'Boletos Aéreos', desc: 'Las mejores tarifas en vuelos nacionales e internacionales.' },
   { icon: '🏨', title: 'Hoteles', desc: 'Reservas en hoteles nacionales e internacionales al mejor precio.' },
   { icon: '🌍', title: 'Tours Internacionales', desc: 'Paquetes completos a los destinos más populares del mundo.' },
@@ -20,6 +22,8 @@ const services = [
 export default function ServicesSection() {
   const ref = useRef<HTMLDivElement>(null);
   const isInView = useInView(ref, { once: true, margin: '-100px' });
+  const { data: fbServices } = useCollection<ServiceItem>('services');
+  const services = fbServices.length > 0 ? fbServices : fallbackServices;
 
   return (
     <section className="services" id="servicios" ref={ref}>

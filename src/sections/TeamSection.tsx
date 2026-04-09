@@ -1,10 +1,12 @@
 import { motion, useInView } from 'framer-motion';
 import { useRef } from 'react';
 import RevealText from '../components/RevealText';
+import { useCollection } from '../hooks/useCollection';
+import type { TeamMember } from '../types';
 import { staggerChildren, fadeInUp } from '../utils/easings';
 import './TeamSection.css';
 
-const leadership = {
+const fallbackLeadership = {
   image: '/imagenes/presidente-vicepresidenta.jpeg',
   members: [
     {
@@ -21,7 +23,7 @@ const leadership = {
   instagram: '@myjtravelsrd',
 };
 
-const team = [
+const fallbackTeam = [
   {
     name: 'Yudelka Mejía',
     role: 'Encargada de Operaciones',
@@ -34,6 +36,18 @@ const team = [
 export default function TeamSection() {
   const ref = useRef<HTMLDivElement>(null);
   const isInView = useInView(ref, { once: true, margin: '-100px' });
+
+  const { data: fbTeam } = useCollection<TeamMember>('team');
+  const leaderMembers = fbTeam.filter(m => m.isLeadership);
+  const regularMembers = fbTeam.filter(m => !m.isLeadership);
+  const hasFirebaseTeam = fbTeam.length > 0;
+
+  const leadership = hasFirebaseTeam && leaderMembers.length > 0
+    ? { image: leaderMembers[0]?.leadershipGroupImage || leaderMembers[0]?.imageUrl || '', members: leaderMembers.map(m => ({ name: m.name, role: m.role, bio: m.bio })), instagram: leaderMembers[0]?.instagram || '' }
+    : fallbackLeadership;
+  const team = hasFirebaseTeam
+    ? regularMembers.map(m => ({ name: m.name, role: m.role, image: m.imageUrl, bio: m.bio, instagram: m.instagram }))
+    : fallbackTeam;
 
   return (
     <section className="team" ref={ref}>

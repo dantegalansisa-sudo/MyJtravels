@@ -1,11 +1,12 @@
 import { motion, useInView } from 'framer-motion';
 import { useRef, useState } from 'react';
 import RevealText from '../components/RevealText';
-
+import { useCollection } from '../hooks/useCollection';
+import type { Destination } from '../types';
 import { staggerChildren, fadeInUp } from '../utils/easings';
 import './DestinationsSection.css';
 
-const international = [
+const fallbackInternational = [
   { city: 'Nueva York', country: 'Estados Unidos', code: 'JFK', price: 'Desde RD$28,000', image: '/imagenes/new york.jpg', tag: 'Más Visitado' },
   { city: 'Miami', country: 'Estados Unidos', code: 'MIA', price: 'Desde RD$18,000', image: '/imagenes/MIAMI.jpg', tag: 'Popular' },
   { city: 'Medellín', country: 'Colombia', code: 'MDE', price: 'Desde RD$19,000', image: '/imagenes/medellin.webp', tag: null },
@@ -20,7 +21,7 @@ const international = [
   { city: 'Chile', country: 'Chile', code: 'SCL', price: 'Desde RD$43,000', image: '/imagenes/chile.webp', tag: null },
 ];
 
-const national = [
+const fallbackNational = [
   { city: 'Punta Cana', country: 'República Dominicana', code: 'PUJ', price: 'Desde RD$52,164', image: '/imagenes/Nickelodeon Hotel Punta Cana.jpg', tag: 'Familiar' },
   { city: 'Puerto Plata', country: 'República Dominicana', code: 'POP', price: 'Desde DOP 5,880', image: '/imagenes/Marien Puerto Plata.jpg', tag: 'Próximamente' },
 ];
@@ -29,6 +30,13 @@ export default function DestinationsSection() {
   const [tab, setTab] = useState<'int' | 'nat'>('int');
   const ref = useRef<HTMLDivElement>(null);
   const isInView = useInView(ref, { once: true, margin: '-100px' });
+  const { data: fbDest } = useCollection<Destination>('destinations');
+  const international = fbDest.length > 0
+    ? fbDest.filter(d => d.category === 'international').map(d => ({ city: d.city, country: d.country, code: d.code, price: d.price, image: d.imageUrl, tag: d.tag }))
+    : fallbackInternational;
+  const national = fbDest.length > 0
+    ? fbDest.filter(d => d.category === 'national').map(d => ({ city: d.city, country: d.country, code: d.code, price: d.price, image: d.imageUrl, tag: d.tag }))
+    : fallbackNational;
   const items = tab === 'int' ? international : national;
 
   return (

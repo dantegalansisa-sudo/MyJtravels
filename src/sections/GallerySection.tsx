@@ -2,10 +2,12 @@ import { motion, useInView } from 'framer-motion';
 import { useRef } from 'react';
 import RevealText from '../components/RevealText';
 import MagneticButton from '../components/MagneticButton';
+import { useCollection } from '../hooks/useCollection';
+import type { GalleryImage } from '../types';
 import { staggerChildren, fadeInUp } from '../utils/easings';
 import './GallerySection.css';
 
-const images = [
+const fallbackImages = [
   'https://images.unsplash.com/photo-1488646953014-85cb44e25828?w=500&q=80',
   'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=500&q=80',
   'https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?w=500&q=80',
@@ -18,6 +20,8 @@ const images = [
 export default function GallerySection() {
   const ref = useRef<HTMLDivElement>(null);
   const isInView = useInView(ref, { once: true, margin: '-100px' });
+  const { data: fbGallery } = useCollection<GalleryImage>('gallery');
+  const images = fbGallery.length > 0 ? fbGallery.map(g => g.imageUrl) : fallbackImages;
 
   return (
     <section className="gallery" ref={ref}>
