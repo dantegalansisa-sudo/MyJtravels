@@ -289,6 +289,21 @@
   font-size: 14px;
 }
 
+/* Image uploader */
+.img-uploader {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.img-uploader__preview {
+  width: 64px;
+  height: 64px;
+  border-radius: 10px;
+  object-fit: cover;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
 /* Loading */
 .adm-loading {
   text-align: center;
