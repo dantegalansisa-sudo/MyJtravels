@@ -4,6 +4,9 @@ import AdminLogin from './admin/AdminLogin';
 import AdminLayout from './admin/AdminLayout';
 import AdminDashboard from './admin/AdminDashboard';
 import AdminPlaceholder from './admin/AdminPlaceholder';
+import WeeklyOffersAdmin from './admin/pages/WeeklyOffersAdmin';
+import FlightsAdmin from './admin/pages/FlightsAdmin';
+import SeedData from './admin/pages/SeedData';
 import ProtectedRoute from './admin/ProtectedRoute';
 
 export default function AppRouter() {
@@ -25,8 +28,9 @@ export default function AppRouter() {
         }
       >
         <Route index element={<AdminDashboard />} />
-        <Route path="weekly-offers" element={<AdminPlaceholder icon="🔥" title="Ofertas Semanales" />} />
-        <Route path="flights" element={<AdminPlaceholder icon="✈️" title="Vuelos" />} />
+        <Route path="weekly-offers" element={<WeeklyOffersAdmin />} />
+        <Route path="flights" element={<FlightsAdmin />} />
+        <Route path="seed" element={<SeedData />} />
         <Route path="hotels-national" element={<AdminPlaceholder icon="🏨" title="Hoteles Nacional" />} />
         <Route path="hotels-intl" element={<AdminPlaceholder icon="🌍" title="Hoteles Internacional" />} />
         <Route path="packages" element={<AdminPlaceholder icon="🏖️" title="Paquetes / Resorts" />} />

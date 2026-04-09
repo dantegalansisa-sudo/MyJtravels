@@ -1,18 +1,22 @@
 import { motion, useInView } from 'framer-motion';
 import { useRef } from 'react';
+import { useCollection } from '../hooks/useCollection';
+import type { WeeklyOffer } from '../types';
 import './OfferStripSection.css';
 
-const offers = [
-  { route: 'Nueva York', code: 'JFK', price: 'RD$28,000', tag: 'Más Popular' },
-  { route: 'Miami', code: 'MIA', price: 'RD$18,000', tag: 'Oferta' },
-  { route: 'Medellín', code: 'MDE', price: 'RD$19,000', tag: null },
-  { route: 'Curazao', code: 'CUR', price: 'RD$14,000', tag: '¡Más Barato!' },
-  { route: 'Bogotá', code: 'BOG', price: 'RD$24,000', tag: null },
+const fallback: WeeklyOffer[] = [
+  { route: 'Nueva York', code: 'JFK', price: 'RD$28,000', tag: 'Más Popular', order: 0, active: true },
+  { route: 'Miami', code: 'MIA', price: 'RD$18,000', tag: 'Oferta', order: 1, active: true },
+  { route: 'Medellín', code: 'MDE', price: 'RD$19,000', tag: null, order: 2, active: true },
+  { route: 'Curazao', code: 'CUR', price: 'RD$14,000', tag: '¡Más Barato!', order: 3, active: true },
+  { route: 'Bogotá', code: 'BOG', price: 'RD$24,000', tag: null, order: 4, active: true },
 ];
 
 export default function OfferStripSection() {
   const ref = useRef<HTMLDivElement>(null);
   const isInView = useInView(ref, { once: true, margin: '-50px' });
+  const { data, loading } = useCollection<WeeklyOffer>('weeklyOffers');
+  const offers = data.length > 0 ? data : (loading ? [] : fallback);
 
   return (
     <section className="offer-strip" ref={ref}>
