@@ -1,19 +1,15 @@
 import { useEffect, useState } from 'react';
 import {
   collection,
-  query,
-  where,
-  orderBy,
   onSnapshot,
   addDoc,
   updateDoc,
   deleteDoc,
   doc,
-  type QueryConstraint,
 } from 'firebase/firestore';
 import { db } from '../firebase/config';
 
-export function useCollection<T extends { id?: string }>(
+export function useCollection<T extends { id?: string; order?: number; active?: boolean }>(
   collectionName: string,
   activeOnly = true,
 ) {
@@ -21,15 +17,12 @@ export function useCollection<T extends { id?: string }>(
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const constraints: QueryConstraint[] = [];
-    if (activeOnly) constraints.push(where('active', '==', true));
-    constraints.push(orderBy('order', 'asc'));
-
-    const q = query(collection(db, collectionName), ...constraints);
     const unsub = onSnapshot(
-      q,
+      collection(db, collectionName),
       (snap) => {
-        const items = snap.docs.map((d) => ({ id: d.id, ...d.data() } as T));
+        let items = snap.docs.map((d) => ({ id: d.id, ...d.data() } as T));
+        if (activeOnly) items = items.filter((i) => i.active !== false);
+        items.sort((a, b) => (a.order ?? 0) - (b.order ?? 0));
         setData(items);
         setLoading(false);
       },
