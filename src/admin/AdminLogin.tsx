@@ -18,8 +18,18 @@ export default function AdminLogin() {
       await login(email, password);
       toast.success('Sesión iniciada');
       navigate('/admin');
-    } catch {
-      toast.error('Credenciales incorrectas');
+    } catch (err: unknown) {
+      const code = (err as { code?: string })?.code || '';
+      const messages: Record<string, string> = {
+        'auth/user-not-found': 'Usuario no encontrado. Verifica el email.',
+        'auth/wrong-password': 'Contraseña incorrecta.',
+        'auth/invalid-credential': 'Credenciales inválidas. Verifica email y contraseña.',
+        'auth/invalid-email': 'Email inválido.',
+        'auth/too-many-requests': 'Demasiados intentos. Espera unos minutos.',
+        'auth/network-request-failed': 'Error de red. Verifica tu conexión.',
+        'auth/configuration-not-found': 'Email/Password no está habilitado en Firebase Console.',
+      };
+      toast.error(messages[code] || `Error: ${code || 'desconocido'}`);
     } finally {
       setLoading(false);
     }
