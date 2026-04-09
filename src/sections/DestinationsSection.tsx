@@ -26,10 +26,10 @@ const fallbackNational = [
   { city: 'Puerto Plata', country: 'República Dominicana', code: 'POP', price: 'Desde DOP 5,880', image: '/imagenes/Marien Puerto Plata.jpg', tag: 'Próximamente' },
 ];
 
-interface Promo { id?: string; title: string; description: string; price: string; imageUrl: string; type: 'daypass' | 'resort'; order?: number; active?: boolean }
+interface Promo { id?: string; title: string; description: string; price: string; imageUrl: string; type: 'daypass' | 'tour'; order?: number; active?: boolean }
 
 export default function DestinationsSection() {
-  const [tab, setTab] = useState<'int' | 'nat' | 'daypass' | 'resort'>('int');
+  const [tab, setTab] = useState<'int' | 'nat' | 'daypass' | 'tour'>('int');
   const ref = useRef<HTMLDivElement>(null);
   const isInView = useInView(ref, { once: true, margin: '-100px' });
   const { data: fbDest } = useCollection<Destination>('destinations');
@@ -41,7 +41,7 @@ export default function DestinationsSection() {
     ? fbDest.filter(d => d.category === 'national').map(d => ({ city: d.city, country: d.country, code: d.code, price: d.price, image: d.imageUrl, tag: d.tag }))
     : fallbackNational;
   const dayPassPromos = fbPromos.filter(p => p.type === 'daypass');
-  const resortPromos = fbPromos.filter(p => p.type === 'resort');
+  const tourPromos = fbPromos.filter(p => p.type === 'tour');
   const items = tab === 'int' ? international : tab === 'nat' ? national : [];
 
   return (
@@ -61,8 +61,8 @@ export default function DestinationsSection() {
           {dayPassPromos.length > 0 && (
             <button className={`destinations__tab ${tab === 'daypass' ? 'destinations__tab--active' : ''}`} onClick={() => setTab('daypass')}>Day Pass</button>
           )}
-          {resortPromos.length > 0 && (
-            <button className={`destinations__tab ${tab === 'resort' ? 'destinations__tab--active' : ''}`} onClick={() => setTab('resort')}>Resort</button>
+          {tourPromos.length > 0 && (
+            <button className={`destinations__tab ${tab === 'tour' ? 'destinations__tab--active' : ''}`} onClick={() => setTab('tour')}>Tour</button>
           )}
         </div>
 
@@ -98,7 +98,7 @@ export default function DestinationsSection() {
         )}
 
         {/* Promo flyers (daypass + resort) */}
-        {(tab === 'daypass' || tab === 'resort') && (
+        {(tab === 'daypass' || tab === 'tour') && (
           <motion.div
             className="destinations__grid"
             variants={staggerChildren(0.08)}
@@ -106,17 +106,17 @@ export default function DestinationsSection() {
             animate={isInView ? 'visible' : 'hidden'}
             key={tab}
           >
-            {(tab === 'daypass' ? dayPassPromos : resortPromos).map((p) => (
+            {(tab === 'daypass' ? dayPassPromos : tourPromos).map((p) => (
               <motion.a
                 key={p.id}
                 className="dest-card dest-card--promo"
-                href={`https://wa.me/18298740109?text=${encodeURIComponent(`Hola! Me interesa el ${tab === 'daypass' ? 'Day Pass' : 'Resort'}: ${p.title} ${p.price ? `(${p.price})` : ''}`)}`}
+                href={`https://wa.me/18298740109?text=${encodeURIComponent(`Hola! Me interesa el ${tab === 'daypass' ? 'Day Pass' : 'Tour'}: ${p.title} ${p.price ? `(${p.price})` : ''}`)}`}
                 target="_blank"
                 rel="noopener noreferrer"
                 variants={fadeInUp}
               >
                 <img className="dest-card__img" src={p.imageUrl} alt={p.title} loading="lazy" />
-                <span className="dest-card__tag">{tab === 'daypass' ? 'Day Pass' : 'Resort'}</span>
+                <span className="dest-card__tag">{tab === 'daypass' ? 'Day Pass' : 'Tour'}</span>
                 <div className="dest-card__body">
                   {p.price && <span className="dest-card__country">{p.price}</span>}
                   <h3 className="dest-card__city">{p.title}</h3>
