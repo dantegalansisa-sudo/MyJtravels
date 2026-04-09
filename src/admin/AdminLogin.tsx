@@ -8,6 +8,7 @@ export default function AdminLogin() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
+  const [showPass, setShowPass] = useState(false);
   const { login } = useAuth();
   const navigate = useNavigate();
 
@@ -57,13 +58,23 @@ export default function AdminLogin() {
 
         <div className="admin-login__field">
           <label>Contraseña</label>
-          <input
-            type="password"
-            value={password}
-            onChange={e => setPassword(e.target.value)}
-            placeholder="••••••••"
-            required
-          />
+          <div className="admin-login__pass-wrap">
+            <input
+              type={showPass ? 'text' : 'password'}
+              value={password}
+              onChange={e => setPassword(e.target.value)}
+              placeholder="••••••••"
+              required
+            />
+            <button
+              type="button"
+              className="admin-login__toggle-pass"
+              onClick={() => setShowPass(!showPass)}
+              tabIndex={-1}
+            >
+              {showPass ? '🙈' : '👁️'}
+            </button>
+          </div>
         </div>
 
         <button className="admin-login__btn" type="submit" disabled={loading}>
