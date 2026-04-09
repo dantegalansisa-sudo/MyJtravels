@@ -11,6 +11,7 @@ const navItems = [
   { to: '/admin/hotels-intl', label: 'Hoteles Internacional', icon: '🌍' },
   { to: '/admin/packages', label: 'Paquetes / Resorts', icon: '🏖️' },
   { to: '/admin/destinations', label: 'Destinos', icon: '📍' },
+  { to: '/admin/promos', label: 'Day Pass & Resort', icon: '🏖️' },
   { to: '/admin/gallery', label: 'Galería', icon: '📸' },
   { to: '/admin/testimonials', label: 'Testimonios', icon: '⭐' },
   { to: '/admin/faqs', label: 'Preguntas Frecuentes', icon: '❓' },

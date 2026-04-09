@@ -15,6 +15,7 @@ import FaqsAdmin from './admin/pages/FaqsAdmin';
 import TeamAdmin from './admin/pages/TeamAdmin';
 import ServicesAdmin from './admin/pages/ServicesAdmin';
 import SiteConfigAdmin from './admin/pages/SiteConfigAdmin';
+import PromosAdmin from './admin/pages/PromosAdmin';
 import SeedData from './admin/pages/SeedData';
 import ProtectedRoute from './admin/ProtectedRoute';
 
@@ -34,6 +35,7 @@ export default function AppRouter() {
         <Route path="hotels-intl" element={<HotelsIntlAdmin />} />
         <Route path="packages" element={<PackagesAdmin />} />
         <Route path="destinations" element={<DestinationsAdmin />} />
+        <Route path="promos" element={<PromosAdmin />} />
         <Route path="gallery" element={<GalleryAdmin />} />
         <Route path="testimonials" element={<TestimonialsAdmin />} />
         <Route path="faqs" element={<FaqsAdmin />} />
